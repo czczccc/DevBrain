@@ -1,0 +1,170 @@
+✅ 一、开发执行 Checklist（按完成顺序）
+
+你可以直接复制到 GitHub Projects / Notion 使用
+
+🧱 阶段 1：基础搭建（Day 1）
+✅ 基础设施
+ 初始化项目结构（backend / core / frontend）
+ 创建 requirements.txt
+ 配置 .env（DeepSeek API）
+ 启动 FastAPI 服务（health check API）
+📂 阶段 2：仓库导入（Day 1-2）
+ 支持输入本地路径
+ 实现文件递归扫描
+ 实现文件过滤规则（.git / node_modules）
+ 输出文件列表（JSON）
+ 保存 project metadata
+🧠 阶段 3：代码切分（Day 2）
+ 读取文件内容
+ 实现基础 chunk（按长度）
+ 给 chunk 加 metadata（file_path / line）
+ 保存 chunk 到本地（json / db）
+
+👉 可选（加分）：
+
+ 接入 tree-sitter（函数级切分）
+🔍 阶段 4：向量索引（Day 3）
+ 接入 embedding（sentence-transformers）
+ 为 chunk 生成 embedding
+ 集成 FAISS
+ 存储向量索引
+ 实现简单 search(query)
+🤖 阶段 5：问答系统（Day 4）
+ 实现 /ask API
+ query → vector search
+ 拼接上下文
+ 调用 DeepSeek API
+ 返回答案
+
+👉 必做增强：
+
+ 返回 source 文件路径
+⚡ 阶段 6：优化体验（Day 5）
+ 限制 token 长度
+ 优化 top-k 检索策略
+ 防止空结果
+ 增加错误提示
+📝 阶段 7：文档生成（Day 6）
+ 实现 README 生成 prompt
+ 支持输入 repo → 输出 README
+ 支持 markdown 输出
+🖥️ 阶段 8：简单前端（Day 6-7）
+ 输入 repo 路径
+ Chat UI（最简单即可）
+ 显示回答 + 来源文件
+🚀 阶段 9：开源发布（Day 7）
+ 写 README（核心卖点）
+ 添加 Demo（gif / 视频）
+ 添加架构图
+ 上传 GitHub
+🗓️ 二、7天开发计划（真实可执行）
+🧨 Day 1：搭好骨架（不要拖）
+
+🎯 目标：
+👉 项目能跑
+
+任务
+初始化 FastAPI
+配置依赖
+写 /health API
+建好目录结构
+完成标准
+uvicorn app:app
+
+能访问
+
+🧨 Day 2：拿到代码 + 切分
+
+🎯 目标：
+👉 能读取 repo 并切 chunk
+
+任务
+实现本地 repo 导入
+文件扫描
+chunk 切分（先简单）
+完成标准
+
+👉 输出：
+
+[
+  {
+    "file": "app.py",
+    "chunk": "def login(): ..."
+  }
+]
+🧨 Day 3：做向量检索
+
+🎯 目标：
+👉 能“搜代码”
+
+任务
+embedding
+FAISS index
+search(query)
+完成标准
+
+输入：
+
+login function
+
+输出：
+👉 返回相关代码 chunk
+
+🧨 Day 4：打通 AI（关键日）
+
+🎯 目标：
+👉 真正变成 AI 项目
+
+任务
+接入 DeepSeek
+实现 /ask
+RAG流程
+完成标准
+
+输入：
+
+登录逻辑在哪？
+
+输出：
+👉 正确回答 + 文件路径
+
+🧨 Day 5：让结果“靠谱”
+
+🎯 目标：
+👉 提升质量（不是乱答）
+
+任务
+优化检索（top-k）
+控制 token
+prompt优化
+完成标准
+
+👉 回答不胡编
+
+🧨 Day 6：做亮点（文档 + UI）
+
+🎯 目标：
+👉 可以展示
+
+任务
+README生成
+简单前端
+展示回答
+完成标准
+
+👉 可以演示给别人看
+
+🧨 Day 7：开源 + 包装
+
+🎯 目标：
+👉 GitHub 项目上线
+
+任务
+写 README
+加 demo gif
+上传代码
+README必须包含：
+🔥 What is this
+🚀 Demo
+💡 Why it's different
+⚡ Quick start
