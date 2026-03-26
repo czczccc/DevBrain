@@ -1,0 +1,25 @@
+{
+  "file_path": "README.md",
+  "file_summary": "This README.md file documents a React + TypeScript + Vite project template. It provides an overview of the setup, mentions available Vite plugins for React (using Babel or SWC), and includes a section with recommendations for expanding the ESLint configuration for production applications, including specific parser options and plugin suggestions.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 30,
+      "summary": "This window covers the entire content of the README.md file. Lines 1-2 introduce the project as a React + TypeScript + Vite template with minimal setup for HMR and ESLint. Lines 3-9 describe two available official Vite plugins for React (one using Babel, another using SWC for Fast Refresh) with embedded links. Lines 10-30 provide a section on expanding ESLint configuration for production, recommending updates to parserOptions (with a code block example on lines 14-22) and suggesting specific TypeScript ESLint plugins and eslint-plugin-react for extending linting rules."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "@vitejs/plugin-react",
+    "@vitejs/plugin-react-swc",
+    "Babel",
+    "SWC",
+    "ESLint",
+    "@typescript-eslint/recommended",
+    "@typescript-eslint/recommended-type-checked",
+    "@typescript-eslint/strict-type-checked",
+    "@typescript-eslint/stylistic-type-checked",
+    "eslint-plugin-react"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "file_path": "package.json",
+  "file_summary": "This is a package.json file for a TypeScript-based Electron application called 'weather-brightness' that uses React with Vite as the build tool. It defines project metadata, npm scripts for development and building, dependencies for React, and devDependencies for TypeScript, ESLint, Vite, Electron, and related plugins.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 33,
+      "summary": "This window contains the entire package.json file. Lines 1-5 define basic project metadata including the name 'weather-brightness', private flag, version, module type, and npm scripts for development (dev), building (build), linting (lint), and previewing (preview). Lines 6-9 list production dependencies (React and React DOM). Lines 10-28 list development dependencies including TypeScript, ESLint with plugins, Vite with React and Electron plugins, and Electron with builder. Line 29 specifies the main entry point for Electron as 'dist-electron/main.js'."
+    }
+  ],
+  "key_symbols": [
+    "name",
+    "private",
+    "version",
+    "type",
+    "scripts",
+    "dependencies",
+    "devDependencies",
+    "main"
+  ],
+  "dependencies_or_calls": [
+    "vite",
+    "tsc",
+    "electron-builder",
+    "eslint",
+    "react",
+    "react-dom",
+    "@types/react",
+    "@types/react-dom",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@vitejs/plugin-react",
+    "eslint-plugin-react-hooks",
+    "eslint-plugin-react-refresh",
+    "typescript",
+    "electron",
+    "vite-plugin-electron",
+    "vite-plugin-electron-renderer"
+  ]
+}

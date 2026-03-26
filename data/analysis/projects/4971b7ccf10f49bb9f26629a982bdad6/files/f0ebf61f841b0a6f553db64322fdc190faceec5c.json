@@ -1,0 +1,36 @@
+{
+  "file_path": "tests/test_itsdangerous/test_encoding.py",
+  "file_summary": "This file contains pytest tests for encoding utilities in the itsdangerous library. It tests functions for byte conversion, base64 encoding/decoding, and integer-byte conversions with various parameterized test cases.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 37,
+      "summary": "This window covers the entire test file. It includes all imports, test function definitions, and test logic. Lines 1-6 import the encoding functions and BadData exception. Lines 8-10 define test_want_bytes, which tests the want_bytes function with string and byte inputs. Lines 13-17 define test_base64, which tests base64 encoding and decoding with Unicode and byte inputs. Lines 20-22 define test_base64_bad, which tests that invalid base64 input raises BadData. Lines 25-36 define test_int_bytes, which parameterizes integer-to-byte conversions for edge cases like zero, a single-byte value, and a large 64-bit integer."
+    }
+  ],
+  "key_symbols": [
+    "pytest",
+    "base64_decode",
+    "base64_encode",
+    "bytes_to_int",
+    "int_to_bytes",
+    "want_bytes",
+    "BadData",
+    "test_want_bytes",
+    "test_base64",
+    "test_base64_bad",
+    "test_int_bytes"
+  ],
+  "dependencies_or_calls": [
+    "pytest",
+    "itsdangerous.encoding.base64_decode",
+    "itsdangerous.encoding.base64_encode",
+    "itsdangerous.encoding.bytes_to_int",
+    "itsdangerous.encoding.int_to_bytes",
+    "itsdangerous.encoding.want_bytes",
+    "itsdangerous.exc.BadData",
+    "pytest.mark.parametrize",
+    "pytest.raises"
+  ]
+}

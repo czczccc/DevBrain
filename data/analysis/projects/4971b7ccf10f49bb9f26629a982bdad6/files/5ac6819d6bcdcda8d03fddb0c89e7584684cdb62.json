@@ -1,0 +1,27 @@
+{
+  "file_path": "src/itsdangerous/encoding.py",
+  "file_summary": "This module provides encoding/decoding utilities for the itsdangerous library, including base64 URL-safe encoding/decoding and integer-byte conversion functions. It handles string/bytes conversion and error management for data serialization.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 54,
+      "summary": "This window covers the entire file, showing all imports and function definitions. It includes: 1) Imports of standard library modules (base64, string, struct, typing) and the local BadData exception. 2) The want_bytes helper function that converts strings to bytes with configurable encoding. 3) Base64 encoding/decoding functions (base64_encode, base64_decode) that provide URL-safe operations with padding handling and error conversion to BadData. 4) Module-level constants for base64 alphabet and struct objects for 64-bit integer packing/unpacking. 5) Integer-byte conversion functions (int_to_bytes, bytes_to_int) that use big-endian 64-bit representation with zero-byte stripping/padding."
+    }
+  ],
+  "key_symbols": [
+    "want_bytes",
+    "base64_encode",
+    "base64_decode",
+    "int_to_bytes",
+    "bytes_to_int",
+    "BadData"
+  ],
+  "dependencies_or_calls": [
+    "base64",
+    "string",
+    "struct",
+    "typing",
+    ".exc.BadData"
+  ]
+}

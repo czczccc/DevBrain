@@ -1,0 +1,22 @@
+{
+  "file_path": "electron/electron-env.d.ts",
+  "file_summary": "This TypeScript declaration file (electron-env.d.ts) provides type definitions for Electron-specific environment variables and global interfaces. It extends NodeJS.ProcessEnv with custom Electron build directory paths and adds the ipcRenderer interface to the Window object for use in renderer processes via preload scripts.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 27,
+      "summary": "This window contains the entire file. Lines 1-2 reference external type definitions and declare a namespace extension for NodeJS.ProcessEnv with custom Electron environment variables (APP_ROOT and VITE_PUBLIC). Lines 3-20 define the ProcessEnv interface extension with documentation comments showing the directory structure. Lines 21-27 add the ipcRenderer property to the Window interface for use in renderer processes, importing the type from Electron."
+    }
+  ],
+  "key_symbols": [
+    "{'name': 'NodeJS.ProcessEnv', 'type': 'namespace_interface', 'description': 'Extended interface to include Electron-specific environment variables'}",
+    "{'name': 'APP_ROOT', 'type': 'environment_variable', 'description': 'String representing the root directory path of the built Electron application structure'}",
+    "{'name': 'VITE_PUBLIC', 'type': 'environment_variable', 'description': 'String path to either /dist/ or /public/ directories'}",
+    "{'name': 'Window.ipcRenderer', 'type': 'interface_property', 'description': \"Property added to Window interface for accessing Electron's IPC renderer in renderer processes\"}"
+  ],
+  "dependencies_or_calls": [
+    "{'type': 'triple_slash_reference', 'target': 'vite-plugin-electron/electron-env', 'description': 'References type definitions from the vite-plugin-electron package'}",
+    "{'type': 'import', 'target': 'electron', 'symbol': 'IpcRenderer', 'description': 'Imports the IpcRenderer type from the electron package for type safety'}"
+  ]
+}

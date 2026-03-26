@@ -22,15 +22,24 @@ class RepoSourceError(Exception):
     message: str
 
 
+@dataclass(frozen=True)
+class RepoCloneResult:
+    """Resolved repository path and whether a local cache was reused."""
+
+    path: Path
+    normalized_url: str
+    cache_reused: bool
+
+
 def clone_github_repository(
     github_url: str,
     target_dir: str | Path,
     github_token: str | None = None,
-) -> Path:
+) -> RepoCloneResult:
     """Clone a GitHub repository to target_dir and return normalized path."""
 
-    normalized_url = github_url.strip()
-    if not GITHUB_URL_PATTERN.match(normalized_url):
+    normalized_url = normalize_github_url(github_url)
+    if not GITHUB_URL_PATTERN.match(github_url.strip()):
         raise RepoSourceError(
             status_code=400,
             message="github_url must match https://github.com/<owner>/<repo>(.git)",
@@ -41,6 +50,12 @@ def clone_github_repository(
         if not root.is_dir():
             raise RepoSourceError(status_code=400, message="target_dir must be a directory path")
         if any(root.iterdir()):
+            if is_cached_github_repository(root, normalized_url):
+                return RepoCloneResult(
+                    path=root,
+                    normalized_url=normalized_url,
+                    cache_reused=True,
+                )
             raise RepoSourceError(status_code=409, message="target_dir already exists and is not empty")
 
     root.parent.mkdir(parents=True, exist_ok=True)
@@ -68,7 +83,11 @@ def clone_github_repository(
         raise RepoSourceError(status_code=500, message="git is not installed or not available in PATH") from exc
 
     if completed.returncode == 0:
-        return root
+        return RepoCloneResult(
+            path=root,
+            normalized_url=normalized_url,
+            cache_reused=False,
+        )
 
     if not existed_before and root.exists():
         shutil.rmtree(root, ignore_errors=True)
@@ -110,3 +129,48 @@ def _is_not_found_error(message: str) -> bool:
 def _truncate(value: str, limit: int = 300) -> str:
     cleaned = value.replace("\n", " ").strip()
     return cleaned[:limit] if len(cleaned) > limit else cleaned
+
+
+def normalize_github_url(github_url: str) -> str:
+    """Normalize a GitHub HTTPS URL for cache matching."""
+
+    normalized = github_url.strip().rstrip("/")
+    if normalized.endswith(".git"):
+        normalized = normalized[:-4]
+    return normalized
+
+
+def is_cached_github_repository(target_dir: str | Path, github_url: str) -> bool:
+    """Return True when target_dir is a git repo whose origin matches github_url."""
+
+    root = Path(target_dir).expanduser().resolve()
+    if not root.is_dir() or not (root / ".git").exists():
+        return False
+
+    origin_url = _read_origin_url(root)
+    if not origin_url:
+        return False
+
+    return normalize_github_url(origin_url) == normalize_github_url(github_url)
+
+
+def _read_origin_url(root: Path) -> str | None:
+    """Read the remote origin URL for a local git repository."""
+
+    command = ["git", "-C", root.as_posix(), "config", "--get", "remote.origin.url"]
+    try:
+        completed = subprocess.run(
+            command,
+            check=False,
+            capture_output=True,
+            text=True,
+            env={"GIT_TERMINAL_PROMPT": "0", **os.environ},
+        )
+    except FileNotFoundError:
+        return None
+
+    if completed.returncode != 0:
+        return None
+
+    origin = (completed.stdout or "").strip()
+    return origin or None

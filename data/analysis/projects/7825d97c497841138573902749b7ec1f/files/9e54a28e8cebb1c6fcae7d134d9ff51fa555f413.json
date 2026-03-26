@@ -1,0 +1,23 @@
+{
+  "file_path": "backend/services/deepseek_client.py",
+  "file_summary": "This Python module provides a client for interacting with DeepSeek's OpenAI-compatible API. It defines a configuration dataclass, a custom exception class, and a main function for sending chat completion requests with error handling for timeouts, HTTP errors, and malformed responses.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 70,
+      "summary": "This window covers the entire file. It includes: 1) Module docstring and imports (lines 1-4). 2) Definition of DeepSeekAPIError exception class (lines 6-8). 3) Definition of DeepSeekConfig dataclass for API configuration (lines 10-16). 4) The chat_completion function (lines 18-70) which: constructs API endpoint and payload, sets headers, makes HTTP POST request using httpx with timeout handling, checks for HTTP errors, parses JSON response, extracts and validates the answer text, and raises appropriate exceptions throughout."
+    }
+  ],
+  "key_symbols": [
+    "DeepSeekAPIError",
+    "DeepSeekConfig",
+    "chat_completion"
+  ],
+  "dependencies_or_calls": [
+    "httpx",
+    "httpx.Client",
+    "httpx.TimeoutException",
+    "httpx.RequestError"
+  ]
+}

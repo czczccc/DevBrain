@@ -1,0 +1,14 @@
+{
+  "file_path": ".github/ISSUE_TEMPLATE/bug-report.md",
+  "file_summary": "This is a GitHub issue template file for reporting bugs in the ItsDangerous project. It provides a structured format for users to submit bug reports with sections for describing the bug, providing reproduction steps, expected behavior, and environment details.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 27,
+      "summary": "This window contains the entire bug report template. Lines 1-3 define the template metadata (name and about). Lines 5-10 provide instructions about using the issue tracker appropriately. Lines 12-16 contain a placeholder for describing the bug. Lines 18-22 contain a placeholder for reproduction steps. Lines 24-27 contain a placeholder for expected behavior and environment details (Python and ItsDangerous versions)."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

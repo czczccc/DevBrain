@@ -1,0 +1,27 @@
+{
+  "file_path": ".devcontainer/devcontainer.json",
+  "file_summary": "This is a devcontainer.json configuration file for setting up a development container for the pallets/itsdangerous Python project. It specifies a Python 3 development container image, configures VS Code settings for Python development, and defines an onCreateCommand script to run when the container is created.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 17,
+      "summary": "This window contains the entire devcontainer.json configuration. Lines 1-2 define the container name and base Python 3 image. Lines 3-13 configure VS Code settings for Python development, including interpreter path, terminal activation, and launch arguments. Lines 14-16 specify the onCreateCommand script that runs when the container is created. The entire file is a single JSON object with all configuration properties."
+    }
+  ],
+  "key_symbols": [
+    "name",
+    "image",
+    "customizations",
+    "vscode",
+    "settings",
+    "python.defaultInterpreterPath",
+    "python.terminal.activateEnvInCurrentTerminal",
+    "python.terminal.launchArgs",
+    "onCreateCommand"
+  ],
+  "dependencies_or_calls": [
+    "mcr.microsoft.com/devcontainers/python:3",
+    ".devcontainer/on-create-command.sh"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "file_path": "AGENTS.md",
+  "file_summary": "AGENTS.md is a markdown document that defines the rules, architecture, and guidelines for the DevBrain project—a local-first AI system designed to understand codebases using RAG (Retrieval-Augmented Generation). It outlines the project's goals, architectural rules, tech stack, RAG implementation rules, repository handling, code style, prohibited practices, workflow, testing, and future extensions. It also includes a specific 'Skill: Progress Summary' section that dictates a structured format for reporting project status.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the initial part of the document, starting from the project title and goal. It includes the project's objective to build a local-first AI system using RAG, architectural rules (modular structure with directories like api/, core/, services/, models/), tech stack specifications (FastAPI, FAISS, sentence-transformers, DeepSeek, tree-sitter), and RAG rules (always use retrieval, limit context size, prefer function-level chunks). It also covers repository handling rules (ignored directories, indexed file types) and code style guidelines (clean code, type hints, clear naming). The window ends just before the '🚫 What NOT to do' section."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 111,
+      "summary": "This window starts in the middle of the '🚫 What NOT to do' section, covering prohibitions like over-engineering and unnecessary abstractions. It includes workflow rules (understand code first, make minimal changes), testing rules (testable core logic, avoid side effects), and future extensions (code graph, agent-based modification, multi-repo support). The window also contains the '🧠 Skill: Progress Summary' section, which defines a strict format for reporting project progress, including completed modules, modified files, missing MVP components, recommended next steps, and suggested follow-up instructions. The window ends at the final line of the document."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

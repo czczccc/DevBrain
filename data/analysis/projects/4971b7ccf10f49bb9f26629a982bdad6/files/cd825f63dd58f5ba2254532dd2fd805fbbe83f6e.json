@@ -1,0 +1,21 @@
+{
+  "file_path": "src/itsdangerous/_json.py",
+  "file_summary": "This file provides JSON serialization utilities for the itsdangerous library, specifically a compact JSON formatter that removes unnecessary whitespace from JSON output while maintaining compatibility with Python's standard json module.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 18,
+      "summary": "This window includes the module imports and the entire _CompactJSON class definition. Lines 1-3 contain imports of the json and typing modules with aliases. Lines 5-18 define the _CompactJSON class with its docstring and two static methods: loads (for parsing JSON) and dumps (for serializing objects to compact JSON format). The dumps method is configured to produce minimal whitespace output by default."
+    }
+  ],
+  "key_symbols": [
+    "{'name': '_CompactJSON', 'type': 'class', 'description': 'Wrapper around the json module that strips whitespace from JSON output by using compact separators.'}",
+    "{'name': '_CompactJSON.loads', 'type': 'static_method', 'description': 'Static method that delegates to json.loads to parse JSON strings or bytes into Python objects.'}",
+    "{'name': '_CompactJSON.dumps', 'type': 'static_method', 'description': 'Static method that delegates to json.dumps with default settings for compact output (no whitespace, Unicode support).'}"
+  ],
+  "dependencies_or_calls": [
+    "{'name': 'json', 'type': 'standard_library_module', 'usage': \"Imported as '_json' to avoid naming conflicts, used for JSON parsing and serialization.\"}",
+    "{'name': 'typing', 'type': 'standard_library_module', 'usage': \"Imported as 't' for type annotations (e.g., t.Any).\"}"
+  ]
+}

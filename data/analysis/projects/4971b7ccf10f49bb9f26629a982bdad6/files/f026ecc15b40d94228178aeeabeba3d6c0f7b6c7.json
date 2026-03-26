@@ -1,0 +1,32 @@
+{
+  "file_path": "src/itsdangerous/exc.py",
+  "file_summary": "This file defines a hierarchy of custom exception classes for the ItsDangerous library, used for handling various data validation and signature verification errors. The exceptions are organized with BadData as the base class, with specialized subclasses for different failure scenarios like bad signatures, expired signatures, and invalid payloads.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the import statements and the first four exception classes in the hierarchy. It starts with imports for type annotations and datetime, then defines BadData as the base exception with a custom message attribute. BadSignature extends BadData to handle signature mismatches with an optional payload. BadTimeSignature further extends BadSignature to handle time-based signature errors with an optional date_signed attribute. The window ends with SignatureExpired defined as a subclass of BadTimeSignature without additional implementation."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 106,
+      "summary": "This window covers the remaining two exception classes. BadHeader extends BadSignature to handle invalid signed headers with additional header and original_error attributes. BadPayload extends BadData to handle invalid payloads with an original_error attribute for tracking the underlying loading error. The window includes the complete definitions of both classes with their docstrings and initialization logic."
+    }
+  ],
+  "key_symbols": [
+    "BadData",
+    "BadSignature",
+    "BadTimeSignature",
+    "SignatureExpired",
+    "BadHeader",
+    "BadPayload"
+  ],
+  "dependencies_or_calls": [
+    "from __future__ import annotations",
+    "import typing as t",
+    "from datetime import datetime",
+    "super().__init__() calls"
+  ]
+}

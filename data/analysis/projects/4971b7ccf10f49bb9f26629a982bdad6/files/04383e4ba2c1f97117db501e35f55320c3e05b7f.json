@@ -1,0 +1,14 @@
+{
+  "file_path": ".github/ISSUE_TEMPLATE/feature-request.md",
+  "file_summary": "This is a GitHub issue template for submitting feature requests to the ItsDangerous project. It provides a structured format with sections for describing the feature, its motivation, and an example problem it would solve.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 15,
+      "summary": "This window contains the entire issue template structure. Lines 1-3 define the template's metadata (name and about). Lines 5-15 include instructional comments for the user: lines 5-9 prompt for a feature description with relevant details, and lines 11-15 ask for an example problem and whether it can be solved without changes to ItsDangerous. The template uses YAML front matter and HTML comments for guidance."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

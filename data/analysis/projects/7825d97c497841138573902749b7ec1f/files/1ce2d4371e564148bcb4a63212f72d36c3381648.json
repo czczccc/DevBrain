@@ -1,0 +1,34 @@
+{
+  "file_path": "core/indexing.py",
+  "file_summary": "This file provides embedding and FAISS indexing utilities for semantic search of code chunks. It includes functionality to build and save FAISS indices from code chunks, search existing indices, and map search results to structured objects. The main components are the SearchResult dataclass for representing search matches, build_and_save_index for creating indices, search_index for querying, and helper functions for loading chunks and mapping results.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the file's imports, the SearchResult dataclass definition, and the build_and_save_index function. Lines 1-12 import dependencies including CodeChunk from core.chunking. Lines 14-24 define the SearchResult dataclass that represents semantic search matches with chunk metadata. Lines 26-55 contain the build_and_save_index function that creates embeddings from code chunks using a SentenceTransformer model, builds a FAISS index, and saves the index and metadata files to disk. The function returns a dictionary with project information."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 112,
+      "summary": "This window covers the search_index function and all helper functions. Lines 61-80 contain the search_index function that loads a saved FAISS index and chunk metadata, encodes a query using the same model, performs a similarity search, and returns mapped results. Lines 82-85 define _load_chunks which reads and deserializes chunk data from JSON. Lines 87-101 define _map_results which converts raw search scores and indices into SearchResult objects. Lines 103-112 define _ensure_dependencies which checks for required packages and raises a helpful error if they're missing."
+    }
+  ],
+  "key_symbols": [
+    "SearchResult",
+    "build_and_save_index",
+    "search_index",
+    "_load_chunks",
+    "_map_results",
+    "_ensure_dependencies"
+  ],
+  "dependencies_or_calls": [
+    "core.chunking.CodeChunk",
+    "sentence_transformers.SentenceTransformer",
+    "faiss",
+    "json",
+    "Path",
+    "dataclasses.asdict"
+  ]
+}

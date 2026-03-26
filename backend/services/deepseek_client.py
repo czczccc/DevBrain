@@ -7,6 +7,12 @@ from dataclasses import dataclass
 import httpx
 
 
+DEFAULT_SYSTEM_PROMPT = (
+    "You are DevBrain, a codebase Q&A assistant. "
+    "Answer using only provided context and cite concrete files when possible."
+)
+
+
 class DeepSeekAPIError(Exception):
     """Raised when DeepSeek request or response parsing fails."""
 
@@ -21,22 +27,30 @@ class DeepSeekConfig:
     timeout_seconds: float = 30.0
 
 
-def chat_completion(prompt: str, config: DeepSeekConfig) -> str:
+def chat_completion(
+    prompt: str,
+    config: DeepSeekConfig,
+    system_prompt: str = DEFAULT_SYSTEM_PROMPT,
+) -> str:
     """Send a non-streaming chat completion request and return answer text."""
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": prompt},
+    ]
+    return chat_completion_from_messages(messages=messages, config=config)
+
+
+def chat_completion_from_messages(
+    messages: list[dict[str, str]],
+    config: DeepSeekConfig,
+) -> str:
+    """Send a non-streaming chat completion request using raw messages."""
 
     endpoint = f"{config.base_url.rstrip('/')}/chat/completions"
     payload = {
         "model": config.model,
-        "messages": [
-            {
-                "role": "system",
-                "content": (
-                    "You are DevBrain, a codebase Q&A assistant. "
-                    "Answer using only provided context and cite concrete files when possible."
-                ),
-            },
-            {"role": "user", "content": prompt},
-        ],
+        "messages": messages,
         "temperature": 0.1,
         "stream": False,
     }

@@ -1,0 +1,14 @@
+{
+  "file_path": "backend/services/__init__.py",
+  "file_summary": "This is an __init__.py file for the backend/services package, containing only a module-level docstring that describes the package's purpose as service-layer modules for backend integrations.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 1,
+      "summary": "This single-line window contains the module docstring, which serves as documentation for the entire backend/services package, indicating it contains service-layer modules for backend integrations."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

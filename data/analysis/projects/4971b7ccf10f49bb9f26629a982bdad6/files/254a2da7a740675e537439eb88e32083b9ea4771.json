@@ -1,0 +1,38 @@
+{
+  "file_path": "docs/conf.py",
+  "file_summary": "This is a Sphinx documentation configuration file (conf.py) for the ItsDangerous project. It configures project metadata, Sphinx extensions, and HTML theme settings for generating documentation.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 55,
+      "summary": "This window covers the entire configuration file. It starts with imports from pallets_sphinx_themes, then defines project metadata (name, copyright, author, version). Next, it configures general Sphinx settings including extensions, autodoc behavior, external links, and intersphinx mapping. Finally, it sets up HTML output options including theme selection, sidebar configurations, static assets, and page titles."
+    }
+  ],
+  "key_symbols": [
+    "project",
+    "copyright",
+    "author",
+    "release",
+    "version",
+    "default_role",
+    "extensions",
+    "autoclass_content",
+    "autodoc_member_order",
+    "autodoc_typehints",
+    "autodoc_preserve_defaults",
+    "extlinks",
+    "intersphinx_mapping",
+    "html_theme",
+    "html_theme_options",
+    "html_context",
+    "html_sidebars",
+    "singlehtml_sidebars",
+    "html_static_path",
+    "html_favicon"
+  ],
+  "dependencies_or_calls": [
+    "pallets_sphinx_themes.get_version",
+    "pallets_sphinx_themes.ProjectLink"
+  ]
+}

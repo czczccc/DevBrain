@@ -1,0 +1,16 @@
+{
+  "file_path": "src/vite-env.d.ts",
+  "file_summary": "TypeScript declaration file for Vite client types, providing type definitions for Vite-specific modules and environment variables.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 1,
+      "summary": "Contains a triple-slash directive that references Vite's client types, enabling TypeScript to recognize Vite-specific global variables and module declarations."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "vite/client"
+  ]
+}

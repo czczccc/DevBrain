@@ -1,0 +1,22 @@
+[
+  {
+    "chunk_id": "main.py:1-4",
+    "relative_path": "main.py",
+    "content": "def main():\n    print(\"hello\")\n\nmain()",
+    "start_line": 1,
+    "end_line": 4,
+    "chunk_type": "line_window",
+    "window_index": 0,
+    "key_symbols": []
+  },
+  {
+    "chunk_id": "utils.py:1-2",
+    "relative_path": "utils.py",
+    "content": "def helper(x):\n    return x + 1",
+    "start_line": 1,
+    "end_line": 2,
+    "chunk_type": "line_window",
+    "window_index": 0,
+    "key_symbols": []
+  }
+]

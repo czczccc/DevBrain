@@ -1,0 +1,36 @@
+{
+  "file_path": "src/itsdangerous/url_safe.py",
+  "file_summary": "This file implements URL-safe serialization for the itsdangerous library. It provides mixin and concrete classes that extend standard serializers to handle base64 encoding/decoding and optional zlib compression, making payloads safe for use in URLs.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the entire URLSafeSerializerMixin class definition. It includes imports, the class declaration with docstring, the default_serializer attribute, and the load_payload method. The load_payload method handles base64 decoding, optional zlib decompression (indicated by a leading '.'), and delegates to the parent class for JSON deserialization, with proper error handling for both decoding and decompression failures."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 83,
+      "summary": "This window covers the dump_payload method of URLSafeSerializerMixin and the definitions of URLSafeSerializer and URLSafeTimedSerializer classes. The dump_payload method takes an object, serializes it to JSON via the parent class, optionally compresses it with zlib if it reduces size, base64 encodes it, and adds a '.' prefix if compressed. The URLSafeSerializer and URLSafeTimedSerializer classes inherit from the mixin and Serializer/TimedSerializer respectively, providing URL-safe versions with descriptive docstrings."
+    }
+  ],
+  "key_symbols": [
+    "URLSafeSerializerMixin",
+    "URLSafeSerializer",
+    "URLSafeTimedSerializer",
+    "load_payload",
+    "dump_payload"
+  ],
+  "dependencies_or_calls": [
+    "typing",
+    "zlib",
+    "_CompactJSON",
+    "base64_decode",
+    "base64_encode",
+    "BadPayload",
+    "_PDataSerializer",
+    "Serializer",
+    "TimedSerializer"
+  ]
+}

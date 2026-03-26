@@ -1,0 +1,13 @@
+{
+  "project_id": "b644fd01155d44bcbd7b94195b512a1f",
+  "root_path": "C:/Users/14636/Desktop/DevBrain/data/repos/czczccc__weather-brightness",
+  "imported_at": "2026-03-26T11:37:01.919518+00:00",
+  "file_count": 21,
+  "ignored_dirs": [
+    ".git",
+    "node_modules"
+  ],
+  "source_type": "github",
+  "source_url": "https://github.com/czczccc/weather-brightness",
+  "cache_reused": true
+}

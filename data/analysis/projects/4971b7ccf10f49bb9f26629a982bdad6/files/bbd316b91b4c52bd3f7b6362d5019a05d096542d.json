@@ -1,0 +1,39 @@
+{
+  "file_path": "src/itsdangerous/__init__.py",
+  "file_summary": "This is the __init__.py file for the itsdangerous package, which serves as the main public interface. It imports and re-exports key classes and functions from submodules, making them available at the package level for convenient access.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 17,
+      "summary": "This window contains the entire file, which consists solely of import statements that re-export symbols from internal submodules. Each line imports a specific class or function (e.g., base64_decode from .encoding, BadSignature from .exc) and re-exposes it under the same name at the package level. This allows users to directly access these symbols via 'from itsdangerous import ...' without needing to reference the internal module structure."
+    }
+  ],
+  "key_symbols": [
+    "base64_decode",
+    "base64_encode",
+    "want_bytes",
+    "BadData",
+    "BadHeader",
+    "BadPayload",
+    "BadSignature",
+    "BadTimeSignature",
+    "SignatureExpired",
+    "Serializer",
+    "HMACAlgorithm",
+    "NoneAlgorithm",
+    "Signer",
+    "TimedSerializer",
+    "TimestampSigner",
+    "URLSafeSerializer",
+    "URLSafeTimedSerializer"
+  ],
+  "dependencies_or_calls": [
+    ".encoding",
+    ".exc",
+    ".serializer",
+    ".signer",
+    ".timed",
+    ".url_safe"
+  ]
+}

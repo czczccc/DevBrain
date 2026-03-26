@@ -19,6 +19,9 @@ class SearchResult:
     start_line: int
     end_line: int
     content: str
+    chunk_type: str
+    window_index: int
+    key_symbols: list[str]
 
 
 def build_and_save_index(
@@ -41,18 +44,8 @@ def build_and_save_index(
     target = Path(output_dir).resolve()
     target.mkdir(parents=True, exist_ok=True)
     faiss.write_index(index, str(target / f"{project_id}.faiss"))
-    (target / f"{project_id}.chunks.json").write_text(
-        json.dumps([asdict(chunk) for chunk in chunks], ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    (target / f"{project_id}.index.json").write_text(
-        json.dumps(
-            {"project_id": project_id, "model_name": model_name, "chunk_count": len(chunks)},
-            ensure_ascii=False,
-            indent=2,
-        ),
-        encoding="utf-8",
-    )
+    _write_chunks(target / f"{project_id}.chunks.json", chunks)
+    _write_index_info(target / f"{project_id}.index.json", project_id, model_name, len(chunks))
     return {"project_id": project_id, "chunk_count": len(chunks), "model_name": model_name}
 
 
@@ -71,16 +64,36 @@ def search_index(
 
     source = Path(index_dir).resolve()
     index = faiss.read_index(str(source / f"{project_id}.faiss"))
-    chunks = _load_chunks(source / f"{project_id}.chunks.json")
+    chunks = load_chunks(source / f"{project_id}.chunks.json")
     model = SentenceTransformer(model_name)
     query_vector = model.encode([query], normalize_embeddings=True)
     scores, indices = index.search(query_vector, top_k)
     return _map_results(scores[0], indices[0], chunks)
 
 
-def _load_chunks(path: Path) -> list[CodeChunk]:
-    raw_items = json.loads(path.read_text(encoding="utf-8"))
+def load_chunks(path: str | Path) -> list[CodeChunk]:
+    """Load persisted chunk metadata."""
+
+    raw_items = json.loads(Path(path).read_text(encoding="utf-8"))
     return [CodeChunk(**item) for item in raw_items]
+
+
+def _write_chunks(path: Path, chunks: list[CodeChunk]) -> None:
+    path.write_text(
+        json.dumps([asdict(chunk) for chunk in chunks], ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _write_index_info(path: Path, project_id: str, model_name: str, chunk_count: int) -> None:
+    path.write_text(
+        json.dumps(
+            {"project_id": project_id, "model_name": model_name, "chunk_count": chunk_count},
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
 
 
 def _map_results(scores, indices, chunks: list[CodeChunk]) -> list[SearchResult]:
@@ -97,6 +110,9 @@ def _map_results(scores, indices, chunks: list[CodeChunk]) -> list[SearchResult]
                 start_line=chunk.start_line,
                 end_line=chunk.end_line,
                 content=chunk.content,
+                chunk_type=chunk.chunk_type,
+                window_index=chunk.window_index,
+                key_symbols=chunk.key_symbols,
             )
         )
     return results

@@ -1,0 +1,14 @@
+{
+  "file_path": "README.md",
+  "file_summary": "README.md is a markdown documentation file for the ItsDangerous Python library. It provides an overview of the library's purpose (securely passing signed data to untrusted environments), includes a simple usage example, and contains sections about donating to the project and contributing.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 50,
+      "summary": "This window covers the entire visible content of the README.md file. It starts with a centered logo, introduces the ItsDangerous library and its purpose (cryptographically signing data for safe transmission), provides a concrete Python example using URLSafeSerializer to generate and verify a token, and concludes with sections encouraging donations and contributions with relevant links."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

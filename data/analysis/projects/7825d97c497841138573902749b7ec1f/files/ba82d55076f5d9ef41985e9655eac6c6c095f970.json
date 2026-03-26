@@ -1,0 +1,14 @@
+{
+  "file_path": "backend/__init__.py",
+  "file_summary": "This is the __init__.py file for the backend package of DevBrain. It contains only a package-level docstring with no executable code, imports, or function definitions.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 1,
+      "summary": "This single-line window contains the package docstring, which provides a brief description of the backend package's purpose within the DevBrain project."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

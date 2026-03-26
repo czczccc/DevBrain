@@ -1,0 +1,14 @@
+{
+  "file_path": "README.md",
+  "file_summary": "A README file for a demo repository that provides tiny helper functions for arithmetic and greetings.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 3,
+      "summary": "Contains the main title and a brief description of the repository's purpose. Lines 1-3 include the heading '# Demo Repo' and a one-sentence overview stating that the repository provides tiny helper functions for arithmetic and greetings."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

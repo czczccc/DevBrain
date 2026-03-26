@@ -1,0 +1,41 @@
+{
+  "file_path": "backend/api/ask.py",
+  "file_summary": "This is a FastAPI router module that provides an '/ask' endpoint for querying project codebases. It defines request/response models, handles semantic search through an index, and uses DeepSeek API to generate answers based on retrieved code context.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the module imports, router setup, and Pydantic model definitions. Lines 1-5 import dependencies including FastAPI components, DeepSeek client, and search functionality. Lines 7-9 create the APIRouter. Lines 11-28 define three Pydantic models: AskRequest for incoming queries, SourceItem for search result metadata, and AskResponse for API responses. Lines 30-80 contain the main ask_question endpoint handler which validates input, searches the index, calls DeepSeek API, and formats the response."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 125,
+      "summary": "This window contains the second half of the ask_question function and three helper functions. Lines 61-80 continue the ask_question function, handling DeepSeek API calls and constructing the final response with sources. Lines 82-101 define _build_prompt which formats retrieved code matches into a structured prompt for the LLM. Lines 103-112 define _read_project_metadata which loads project metadata from JSON files. Lines 114-125 define _ensure_index_files which checks for required index files and raises errors if missing."
+    }
+  ],
+  "key_symbols": [
+    "router",
+    "AskRequest",
+    "SourceItem",
+    "AskResponse",
+    "ask_question",
+    "_build_prompt",
+    "_read_project_metadata",
+    "_ensure_index_files"
+  ],
+  "dependencies_or_calls": [
+    "json",
+    "Path",
+    "APIRouter",
+    "HTTPException",
+    "BaseModel",
+    "Field",
+    "DeepSeekAPIError",
+    "DeepSeekConfig",
+    "chat_completion",
+    "settings",
+    "search_index"
+  ]
+}

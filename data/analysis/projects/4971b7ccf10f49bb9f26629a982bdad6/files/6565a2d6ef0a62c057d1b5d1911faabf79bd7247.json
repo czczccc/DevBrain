@@ -1,0 +1,45 @@
+{
+  "file_path": "tests/test_itsdangerous/test_timed.py",
+  "file_summary": "This file contains test classes for TimedSerializer and TimestampSigner from the itsdangerous library. It includes tests for time-based signature validation, handling of expired signatures, malformed timestamps, and edge cases with future timestamps. The tests use pytest fixtures and freezegun for time manipulation.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the entire import section, the FreezeMixin class, and the TestTimestampSigner class up to the end of its test methods. It includes: imports of datetime utilities, pytest, freezegun, and itsdangerous modules; the FreezeMixin providing time-freezing fixtures; and TestTimestampSigner with tests for max_age validation, timestamp extraction, and error handling for missing/malformed timestamps."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 115,
+      "summary": "This window covers the latter part of TestTimestampSigner and the complete TestTimedSerializer class. It includes: tests for future timestamps and signature error handling in TestTimestampSigner; the TestTimedSerializer class definition with its serializer_factory fixture; and tests for max_age and return_timestamp functionality in TimedSerializer."
+    }
+  ],
+  "key_symbols": [
+    "FreezeMixin",
+    "TestTimestampSigner",
+    "TestTimedSerializer",
+    "TimestampSigner",
+    "TimedSerializer",
+    "Signer",
+    "SignatureExpired",
+    "BadTimeSignature",
+    "freeze_time",
+    "pytest"
+  ],
+  "dependencies_or_calls": [
+    "datetime",
+    "timedelta",
+    "timezone",
+    "partial",
+    "pytest",
+    "freezegun.freeze_time",
+    "itsdangerous.exc.BadTimeSignature",
+    "itsdangerous.exc.SignatureExpired",
+    "itsdangerous.signer.Signer",
+    "itsdangerous.timed.TimedSerializer",
+    "itsdangerous.timed.TimestampSigner",
+    "test_itsdangerous.test_serializer.TestSerializer",
+    "test_itsdangerous.test_signer.TestSigner"
+  ]
+}

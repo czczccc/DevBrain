@@ -1,0 +1,13 @@
+{
+  "project_id": "c0f834e4bc8441d7b72128a101b35f4d",
+  "root_path": "C:/Users/14636/Desktop/DevBrain/data/repos/octocat__Hello-World",
+  "imported_at": "2026-03-26T09:44:26.870194+00:00",
+  "file_count": 1,
+  "ignored_dirs": [
+    ".git",
+    "node_modules"
+  ],
+  "source_type": "github",
+  "source_url": "https://github.com/octocat/Hello-World",
+  "cache_reused": true
+}

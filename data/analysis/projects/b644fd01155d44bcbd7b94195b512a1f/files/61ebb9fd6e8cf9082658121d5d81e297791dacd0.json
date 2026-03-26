@@ -1,0 +1,25 @@
+{
+  "file_path": "tsconfig.json",
+  "file_summary": "This is a TypeScript configuration file (tsconfig.json) that defines compiler options and project settings for a TypeScript project, likely for a React application with Electron integration. It specifies modern JavaScript/TypeScript features, strict linting rules, and includes source directories while referencing another TypeScript configuration file.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 25,
+      "summary": "This window contains the entire tsconfig.json file. Lines 1-25 define the complete TypeScript configuration, including compiler options (target, module settings, linting rules) and project settings (included directories and references). The configuration targets ES2020, uses ESNext modules with bundler resolution, enables strict type checking, and references a separate tsconfig.node.json configuration file."
+    }
+  ],
+  "key_symbols": [
+    "compilerOptions",
+    "target",
+    "lib",
+    "module",
+    "moduleResolution",
+    "strict",
+    "include",
+    "references"
+  ],
+  "dependencies_or_calls": [
+    "tsconfig.node.json"
+  ]
+}

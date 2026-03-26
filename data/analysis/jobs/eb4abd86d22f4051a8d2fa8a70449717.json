@@ -1,0 +1,14 @@
+{
+  "job_id": "eb4abd86d22f4051a8d2fa8a70449717",
+  "project_id": "eeb9a8aa036e4e27b246a288ff531060",
+  "status": "completed",
+  "total_files": 2,
+  "completed_files": 2,
+  "failed_files": 0,
+  "current_file": null,
+  "repo_summary_ready": true,
+  "started_at": "2026-03-26T10:12:04.838967+00:00",
+  "finished_at": "2026-03-26T10:12:04.852879+00:00",
+  "updated_at": "2026-03-26T10:12:04.852879+00:00",
+  "error": null
+}

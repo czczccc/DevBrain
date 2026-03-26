@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevBrain 仓库理解工作台</title>
+    <link rel="icon" type="image/svg+xml" href="/ui/favicon.svg" />
+    <link rel="stylesheet" href="/ui/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-copy-block">
+          <p class="eyebrow">DevBrain 工作台</p>
+          <h1>导入仓库、分析代码、生成可追溯回答</h1>
+          <p class="hero-copy">
+            输入 GitHub 仓库地址后，我们会完成导入、索引、逐文件分析，再把上下文交给
+            DeepSeek 生成带来源的解释。主界面优先展示仓库总结、回答和关键状态，调试数据按需展开。
+          </p>
+        </div>
+        <div class="hero-meta">
+          <div class="status-card">
+            <span class="status-label">后端状态</span>
+            <strong id="backend-state">检查中...</strong>
+            <span id="backend-detail">http://127.0.0.1:8000</span>
+          </div>
+          <button id="refresh-health" class="ghost-button" type="button">刷新连接状态</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel input-panel">
+          <div class="panel-header">
+            <div>
+              <p class="section-tag">输入控制台</p>
+              <h2>仓库与提问配置</h2>
+            </div>
+            <div class="mode-hint">
+              <span>四步流程：导入 -> 索引 -> 分析 -> 问答</span>
+            </div>
+          </div>
+
+          <form id="control-form" novalidate>
+            <label class="field">
+              <span>GitHub 仓库地址</span>
+              <input
+                id="github-url"
+                name="githubUrl"
+                type="url"
+                placeholder="https://github.com/owner/repo.git"
+                autocomplete="off"
+              />
+            </label>
+
+            <label class="field">
+              <span>目标目录</span>
+              <input
+                id="target-dir"
+                name="targetDir"
+                type="text"
+                placeholder="C:/Users/14636/Desktop/DevBrain/data/repos/my-target"
+                autocomplete="off"
+              />
+              <small id="target-dir-hint" class="field-hint">
+                输入合法的 GitHub 地址后，会自动生成缓存目录，你也可以手动调整。
+              </small>
+            </label>
+
+            <label class="field">
+              <span>GitHub Token <small>私有仓库可选</small></span>
+              <input
+                id="github-token"
+                name="githubToken"
+                type="password"
+                placeholder="ghp_xxx"
+                autocomplete="off"
+              />
+            </label>
+
+            <div class="field-row">
+              <label class="field">
+                <span>问题</span>
+                <textarea
+                  id="question"
+                  name="question"
+                  rows="4"
+                  placeholder="这个仓库是做什么的？核心模块有哪些？"
+                ></textarea>
+              </label>
+
+              <label class="field compact-field">
+                <span>检索数量</span>
+                <input id="top-k" name="topK" type="number" min="1" max="20" value="5" />
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button id="run-all" class="primary-button" type="button">一键运行</button>
+              <button id="run-load" class="secondary-button" type="button">仅导入仓库</button>
+              <button id="run-index" class="secondary-button" type="button">构建索引</button>
+              <button id="run-analyze" class="secondary-button" type="button">开始分析</button>
+              <button id="run-ask" class="secondary-button" type="button">发送提问</button>
+            </div>
+          </form>
+
+          <div id="message-banner" class="message-banner hidden" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="panel results-panel">
+          <div class="panel-header results-header">
+            <div>
+              <p class="section-tag">结果看板</p>
+              <h2>仓库理解结果与问答</h2>
+            </div>
+            <div class="project-chip">
+              <span>当前项目</span>
+              <strong id="project-id">尚未创建</strong>
+            </div>
+          </div>
+
+          <div class="timeline" id="timeline">
+            <article class="timeline-step" data-step="load">
+              <span class="step-index">1</span>
+              <div>
+                <h3>导入</h3>
+                <p id="load-step-text">等待输入</p>
+              </div>
+            </article>
+            <article class="timeline-step" data-step="index">
+              <span class="step-index">2</span>
+              <div>
+                <h3>索引</h3>
+                <p id="index-step-text">等待仓库</p>
+              </div>
+            </article>
+            <article class="timeline-step" data-step="analyze">
+              <span class="step-index">3</span>
+              <div>
+                <h3>分析</h3>
+                <p id="analyze-step-text">等待索引完成</p>
+              </div>
+            </article>
+            <article class="timeline-step" data-step="ask">
+              <span class="step-index">4</span>
+              <div>
+                <h3>问答</h3>
+                <p id="ask-step-text">等待提问</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="summary-grid">
+            <article class="summary-card">
+              <span>导入文件数</span>
+              <strong id="file-count">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>可索引文件</span>
+              <strong id="indexable-count">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>索引块数</span>
+              <strong id="chunk-count">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>已分析文件</span>
+              <strong id="analyzed-count">0 / 0</strong>
+            </article>
+            <article class="summary-card">
+              <span>失败文件</span>
+              <strong id="failed-count">0</strong>
+            </article>
+            <article class="summary-card">
+              <span>仓库来源</span>
+              <strong id="source-type">暂无</strong>
+            </article>
+            <article class="summary-card">
+              <span>缓存状态</span>
+              <strong id="cache-status">未确定</strong>
+            </article>
+            <article class="summary-card">
+              <span>分析就绪</span>
+              <strong id="analysis-ready">否</strong>
+            </article>
+            <article class="summary-card wide-card">
+              <span>仓库根目录</span>
+              <strong id="root-path">暂无</strong>
+            </article>
+          </div>
+
+          <div class="headline-grid">
+            <article class="analysis-card status-highlight">
+              <div class="subsection-header">
+                <h3>分析进度</h3>
+                <span id="analysis-status">未开始</span>
+              </div>
+              <p id="analysis-current-file" class="analysis-detail">当前没有正在分析的文件。</p>
+            </article>
+
+            <article class="analysis-card spotlight-card">
+              <div class="subsection-header">
+                <h3>仓库总结</h3>
+                <span id="repo-summary-state">未生成</span>
+              </div>
+              <p id="repo-summary-output" class="answer-output">
+                完成“开始分析”后，这里会展示仓库级总结，帮助你快速理解项目用途、核心模块和入口。
+              </p>
+            </article>
+          </div>
+
+          <div class="answer-card spotlight-card">
+            <div class="subsection-header">
+              <h3>DeepSeek 回答</h3>
+              <span id="ask-analysis-badge">分析就绪：否</span>
+            </div>
+            <p id="answer-output" class="answer-output">
+              导入并分析仓库后，在左侧输入问题，这里会展示基于代码上下文生成的中文回答。
+            </p>
+          </div>
+
+          <div class="sources-card">
+            <div class="subsection-header">
+              <h3>引用来源</h3>
+              <span id="source-count">共 0 条</span>
+            </div>
+            <div id="sources-list" class="sources-list">
+              <p class="empty-state">相关代码片段会显示在这里，方便你核对回答依据。</p>
+            </div>
+          </div>
+
+          <details class="debug-panel">
+            <summary>
+              <span>高级调试</span>
+              <small>查看 Load / Index / Analyze / Ask 的原始返回</small>
+            </summary>
+
+            <div class="json-grid">
+              <article class="json-card">
+                <div class="subsection-header">
+                  <h3>导入响应</h3>
+                </div>
+                <pre id="load-json">暂无返回数据。</pre>
+              </article>
+              <article class="json-card">
+                <div class="subsection-header">
+                  <h3>索引响应</h3>
+                </div>
+                <pre id="index-json">暂无返回数据。</pre>
+              </article>
+              <article class="json-card">
+                <div class="subsection-header">
+                  <h3>分析响应</h3>
+                </div>
+                <pre id="analyze-json">暂无返回数据。</pre>
+              </article>
+              <article class="json-card">
+                <div class="subsection-header">
+                  <h3>问答响应</h3>
+                </div>
+                <pre id="ask-json">暂无返回数据。</pre>
+              </article>
+            </div>
+          </details>
+        </section>
+      </main>
+    </div>
+
+    <script src="/ui/app.js"></script>
+  </body>
+</html>

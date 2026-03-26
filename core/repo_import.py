@@ -28,6 +28,9 @@ class ProjectMetadata:
     imported_at: str
     file_count: int
     ignored_dirs: list[str]
+    source_type: str = "local"
+    source_url: str | None = None
+    cache_reused: bool = False
 
 
 def scan_repository_files(
@@ -58,6 +61,9 @@ def save_project_metadata(
     files: list[ScannedFile],
     output_dir: str | Path = "data/projects",
     ignored_dirs: set[str] | None = None,
+    source_type: str = "local",
+    source_url: str | None = None,
+    cache_reused: bool = False,
 ) -> ProjectMetadata:
     """Save metadata for an imported project and return the persisted model."""
 
@@ -69,6 +75,9 @@ def save_project_metadata(
         imported_at=datetime.now(UTC).isoformat(),
         file_count=len(files),
         ignored_dirs=skip_dirs,
+        source_type=source_type,
+        source_url=source_url,
+        cache_reused=cache_reused,
     )
 
     target_dir = Path(output_dir).resolve()

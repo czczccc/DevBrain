@@ -1,0 +1,23 @@
+{
+  "file_path": "tsconfig.node.json",
+  "file_summary": "This is a TypeScript configuration file (tsconfig.node.json) that defines compiler options for a Node.js project. It specifies settings like module system, strict type checking, and includes only vite.config.ts for compilation.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 11,
+      "summary": "This window contains the entire tsconfig.node.json file. Lines 1-11 define the complete configuration: the 'compilerOptions' object (lines 2-9) with settings for composite builds, library checking, ESNext modules, bundler resolution, synthetic imports, and strict mode, and the 'include' array (line 10) specifying vite.config.ts as the only file to compile."
+    }
+  ],
+  "key_symbols": [
+    "compilerOptions",
+    "composite",
+    "skipLibCheck",
+    "module",
+    "moduleResolution",
+    "allowSyntheticDefaultImports",
+    "strict",
+    "include"
+  ],
+  "dependencies_or_calls": []
+}

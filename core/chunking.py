@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-import ast
+from dataclasses import dataclass, field
 from typing import Iterable
 
+from core.code_intelligence import extract_file_intelligence
 from core.repo_ingestion import RepoDocument
+
+DEFAULT_WINDOW_SIZE = 80
+DEFAULT_WINDOW_OVERLAP = 20
 
 
 @dataclass(frozen=True)
@@ -18,56 +21,75 @@ class CodeChunk:
     content: str
     start_line: int
     end_line: int
+    chunk_type: str = "line_window"
+    window_index: int = 0
+    key_symbols: list[str] = field(default_factory=list)
 
 
-def chunk_documents(documents: Iterable[RepoDocument]) -> list[CodeChunk]:
-    """Chunk repository documents by function blocks when possible."""
+def chunk_documents(
+    documents: Iterable[RepoDocument],
+    window_size: int = DEFAULT_WINDOW_SIZE,
+    overlap: int = DEFAULT_WINDOW_OVERLAP,
+) -> list[CodeChunk]:
+    """Chunk repository documents into overlapping line windows."""
 
     chunks: list[CodeChunk] = []
     for document in documents:
-        produced = _chunk_python_document(document) if document.language == "python" else []
-        if not produced:
-            produced = [_chunk_whole_document(document)]
-        chunks.extend(produced)
+        chunks.extend(_chunk_document(document, window_size=window_size, overlap=overlap))
     return chunks
 
 
-def _chunk_python_document(document: RepoDocument) -> list[CodeChunk]:
-    try:
-        tree = ast.parse(document.content)
-    except SyntaxError:
+def _chunk_document(document: RepoDocument, window_size: int, overlap: int) -> list[CodeChunk]:
+    lines = document.content.splitlines()
+    if not lines:
         return []
 
-    chunks: list[CodeChunk] = []
-    lines = document.content.splitlines()
-    for node in ast.walk(tree):
-        if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
-            continue
-        start_line = getattr(node, "lineno", 1)
-        end_line = getattr(node, "end_lineno", start_line)
+    intelligence = extract_file_intelligence(document)
+    windows: list[CodeChunk] = []
+    for window_index, (start_line, end_line) in enumerate(
+        _iter_line_windows(line_count=len(lines), window_size=window_size, overlap=overlap)
+    ):
         content = "\n".join(lines[start_line - 1 : end_line]).strip()
         if not content:
             continue
-        chunk_id = f"{document.relative_path}:{start_line}-{end_line}"
-        chunks.append(
+        windows.append(
             CodeChunk(
-                chunk_id=chunk_id,
+                chunk_id=f"{document.relative_path}:{start_line}-{end_line}",
                 relative_path=document.relative_path,
                 content=content,
                 start_line=start_line,
                 end_line=end_line,
+                chunk_type="line_window",
+                window_index=window_index,
+                key_symbols=intelligence.key_symbols,
             )
         )
-    return sorted(chunks, key=lambda item: (item.relative_path, item.start_line))
+    return windows
 
 
-def _chunk_whole_document(document: RepoDocument) -> CodeChunk:
-    lines = document.content.splitlines()
-    end_line = max(len(lines), 1)
-    return CodeChunk(
-        chunk_id=f"{document.relative_path}:1-{end_line}",
-        relative_path=document.relative_path,
-        content=document.content,
-        start_line=1,
-        end_line=end_line,
-    )
+def _iter_line_windows(line_count: int, window_size: int, overlap: int) -> Iterable[tuple[int, int]]:
+    if line_count <= 0:
+        return []
+
+    if window_size <= 0:
+        raise ValueError("window_size must be positive")
+    if overlap < 0:
+        raise ValueError("overlap must not be negative")
+    if overlap >= window_size:
+        raise ValueError("overlap must be smaller than window_size")
+
+    if line_count <= window_size:
+        return [(1, line_count)]
+
+    windows: list[tuple[int, int]] = []
+    step = window_size - overlap
+    start_line = 1
+
+    while start_line <= line_count:
+        end_line = min(start_line + window_size - 1, line_count)
+        windows.append((start_line, end_line))
+        if end_line >= line_count:
+            break
+        start_line += step
+
+    return windows

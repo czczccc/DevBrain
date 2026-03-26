@@ -1,0 +1,26 @@
+{
+  "file_path": "backend/settings.py",
+  "file_summary": "This file defines a Pydantic Settings class for loading application configuration from environment variables with defaults. It includes API keys, URLs, and model names for DeepSeek and embedding services, and creates a singleton settings instance.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 18,
+      "summary": "This window contains the entire file. Lines 1-2 import Pydantic dependencies. Lines 4-16 define the Settings class with configuration fields for DeepSeek API (key, URL, model) and an embedding model, each with environment variable aliases and defaults. Line 17 sets the model configuration to load from a .env file. Line 18 instantiates a global settings object."
+    }
+  ],
+  "key_symbols": [
+    "Settings",
+    "settings",
+    "deepseek_api_key",
+    "deepseek_base_url",
+    "deepseek_model",
+    "embedding_model",
+    "model_config"
+  ],
+  "dependencies_or_calls": [
+    "pydantic.Field",
+    "pydantic_settings.BaseSettings",
+    "pydantic_settings.SettingsConfigDict"
+  ]
+}

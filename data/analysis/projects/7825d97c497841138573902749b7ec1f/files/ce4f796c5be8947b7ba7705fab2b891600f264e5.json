@@ -1,0 +1,39 @@
+{
+  "file_path": "core/__init__.py",
+  "file_summary": "This is the __init__.py file for the 'core' package, serving as the main entry point that re-exports key symbols from submodules. It imports various classes, functions, and constants from five submodules (chunking, indexing, repo_ingestion, repo_import, repo_source) and defines __all__ to explicitly list the public API of the package.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 39,
+      "summary": "This window covers the entire file, which consists of import statements and the __all__ definition. Lines 1-5 import symbols from the 'chunking' and 'indexing' submodules. Lines 6-13 import symbols from 'repo_ingestion' using a multi-line import for readability. Lines 14-20 import symbols from 'repo_import' similarly. Line 21 imports from 'repo_source'. Lines 23-39 define __all__, a list that explicitly declares the public API of the package by including all imported symbols, ensuring they are accessible when the package is imported with 'from core import *'."
+    }
+  ],
+  "key_symbols": [
+    "CodeChunk",
+    "SearchResult",
+    "chunk_documents",
+    "build_and_save_index",
+    "search_index",
+    "DEFAULT_ALLOWED_EXTENSIONS",
+    "DEFAULT_IGNORED_DIRS",
+    "IngestionError",
+    "IngestionResult",
+    "RepoDocument",
+    "RepoIngestor",
+    "DEFAULT_SCAN_IGNORED_DIRS",
+    "ProjectMetadata",
+    "ScannedFile",
+    "save_project_metadata",
+    "scan_repository_files",
+    "RepoSourceError",
+    "clone_github_repository"
+  ],
+  "dependencies_or_calls": [
+    "from .chunking import CodeChunk, chunk_documents",
+    "from .indexing import SearchResult, build_and_save_index, search_index",
+    "from .repo_ingestion import (DEFAULT_ALLOWED_EXTENSIONS, DEFAULT_IGNORED_DIRS, IngestionError, IngestionResult, RepoDocument, RepoIngestor,)",
+    "from .repo_import import (DEFAULT_SCAN_IGNORED_DIRS, ProjectMetadata, ScannedFile, save_project_metadata, scan_repository_files,)",
+    "from .repo_source import RepoSourceError, clone_github_repository"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "project_id": "4971b7ccf10f49bb9f26629a982bdad6",
+  "root_path": "C:/Users/14636/Desktop/DevBrain/data/repos/pallets__itsdangerous",
+  "imported_at": "2026-03-26T11:08:15.392390+00:00",
+  "file_count": 50,
+  "ignored_dirs": [
+    ".git",
+    "node_modules"
+  ],
+  "source_type": "github",
+  "source_url": "https://github.com/pallets/itsdangerous",
+  "cache_reused": false
+}

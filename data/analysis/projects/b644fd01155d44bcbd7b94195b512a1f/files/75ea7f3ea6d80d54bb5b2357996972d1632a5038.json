@@ -1,0 +1,28 @@
+{
+  "file_path": "vite.config.ts",
+  "file_summary": "This is a Vite configuration file written in TypeScript that sets up a React application with Electron integration. It imports necessary plugins and defines the configuration using defineConfig, specifying plugins for React and Electron with specific entry points for main and preload scripts.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 29,
+      "summary": "This window covers the entire configuration file. It starts with imports for defineConfig, path, electron plugin, and react plugin. Then it exports the default configuration using defineConfig, which includes a plugins array. The react plugin is added simply. The electron plugin is configured with an object specifying: main.entry for the main Electron process file, preload.input using path.join to locate the preload script, and renderer conditionally set based on NODE_ENV (undefined for 'test', otherwise an empty object). A comment references a GitHub issue related to the renderer configuration."
+    }
+  ],
+  "key_symbols": [
+    "{'name': 'defineConfig', 'type': 'imported function', 'description': \"Function from 'vite' used to define Vite configuration with type safety.\"}",
+    "{'name': 'path', 'type': 'imported module', 'description': 'Node.js path module for handling file paths.'}",
+    "{'name': 'electron', 'type': 'imported plugin', 'description': \"Vite plugin from 'vite-plugin-electron/simple' for integrating Electron.\"}",
+    "{'name': 'react', 'type': 'imported plugin', 'description': \"Vite plugin from '@vitejs/plugin-react' for React support.\"}"
+  ],
+  "dependencies_or_calls": [
+    "{'type': 'import', 'target': 'vite', 'item': 'defineConfig'}",
+    "{'type': 'import', 'target': 'node:path', 'item': 'path'}",
+    "{'type': 'import', 'target': 'vite-plugin-electron/simple', 'item': 'electron'}",
+    "{'type': 'import', 'target': '@vitejs/plugin-react', 'item': 'react'}",
+    "{'type': 'function_call', 'target': 'defineConfig', 'context': 'Exports the Vite configuration object.'}",
+    "{'type': 'function_call', 'target': 'react', 'context': 'Called without arguments to configure React plugin.'}",
+    "{'type': 'function_call', 'target': 'electron', 'context': 'Called with an object configuring main, preload, and renderer settings.'}",
+    "{'type': 'method_call', 'target': 'path.join', 'context': 'Used to construct the path for the preload script input.'}"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "file_path": "tests/test_itsdangerous/test_signer.py",
+  "file_summary": "This is a test file for the Signer class in the itsdangerous library. It contains unit tests that verify the functionality of the Signer class, including signing, validation, unsigning, error handling, and various configuration options like key derivation, digest methods, and signing algorithms. The file also includes a custom test algorithm and tests for abstract base class behavior.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the initial imports, definition of a custom reverse algorithm class, and the beginning of the TestSigner class. It includes the signer_factory and signer fixtures, and tests for basic signing/unsigning, separator validation, broken signatures, and changed values. The window ends with a test for invalid separator handling."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 109,
+      "summary": "This window continues the TestSigner class with tests for key derivation methods (including invalid cases), digest methods, and signing algorithms (including custom and built-in ones). It also includes tests for secret key handling with single and multiple keys. The window concludes with a standalone test function for the abstract SigningAlgorithm base class, verifying that it raises NotImplementedError."
+    }
+  ],
+  "key_symbols": [
+    "TestSigner",
+    "Signer",
+    "SigningAlgorithm",
+    "_ReverseAlgorithm",
+    "HMACAlgorithm",
+    "NoneAlgorithm",
+    "BadSignature",
+    "pytest"
+  ],
+  "dependencies_or_calls": [
+    "hashlib",
+    "functools.partial",
+    "pytest",
+    "itsdangerous.exc.BadSignature",
+    "itsdangerous.signer.HMACAlgorithm",
+    "itsdangerous.signer.NoneAlgorithm",
+    "itsdangerous.signer.Signer",
+    "itsdangerous.signer.SigningAlgorithm"
+  ]
+}

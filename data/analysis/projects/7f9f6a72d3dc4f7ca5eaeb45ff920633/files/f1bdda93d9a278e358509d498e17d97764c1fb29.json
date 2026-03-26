@@ -1,0 +1,18 @@
+{
+  "file_path": "main.py",
+  "file_summary": "Small file summary",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 4,
+      "summary": "Window 0 summary"
+    }
+  ],
+  "key_symbols": [
+    "main"
+  ],
+  "dependencies_or_calls": [
+    "print"
+  ]
+}

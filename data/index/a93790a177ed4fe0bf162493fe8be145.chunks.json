@@ -1,0 +1,65 @@
+[
+  {
+    "chunk_id": "README.md:1-30",
+    "relative_path": "README.md",
+    "content": "# React + TypeScript + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh\n- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh\n\n## Expanding the ESLint configuration\n\nIf you are developing a production application, we recommend updating the configuration to enable type aware lint rules:\n\n- Configure the top-level `parserOptions` property like this:\n\n```js\nexport default {\n  // other rules...\n  parserOptions: {\n    ecmaVersion: 'latest',\n    sourceType: 'module',\n    project: ['./tsconfig.json', './tsconfig.node.json'],\n    tsconfigRootDir: __dirname,\n  },\n}\n```\n\n- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`\n- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`\n- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list\n",
+    "start_line": 1,
+    "end_line": 30
+  },
+  {
+    "chunk_id": "electron/electron-env.d.ts:1-27",
+    "relative_path": "electron/electron-env.d.ts",
+    "content": "/// <reference types=\"vite-plugin-electron/electron-env\" />\n\ndeclare namespace NodeJS {\n  interface ProcessEnv {\n    /**\n     * The built directory structure\n     *\n     * ```tree\n     * ├─┬─┬ dist\n     * │ │ └── index.html\n     * │ │\n     * │ ├─┬ dist-electron\n     * │ │ ├── main.js\n     * │ │ └── preload.js\n     * │\n     * ```\n     */\n    APP_ROOT: string\n    /** /dist/ or /public/ */\n    VITE_PUBLIC: string\n  }\n}\n\n// Used in Renderer process, expose in `preload.ts`\ninterface Window {\n  ipcRenderer: import('electron').IpcRenderer\n}\n",
+    "start_line": 1,
+    "end_line": 27
+  },
+  {
+    "chunk_id": "electron/main.ts:1-68",
+    "relative_path": "electron/main.ts",
+    "content": "import { app, BrowserWindow } from 'electron'\nimport { createRequire } from 'node:module'\nimport { fileURLToPath } from 'node:url'\nimport path from 'node:path'\n\nconst require = createRequire(import.meta.url)\nconst __dirname = path.dirname(fileURLToPath(import.meta.url))\n\n// The built directory structure\n//\n// ├─┬─┬ dist\n// │ │ └── index.html\n// │ │\n// │ ├─┬ dist-electron\n// │ │ ├── main.js\n// │ │ └── preload.mjs\n// │\nprocess.env.APP_ROOT = path.join(__dirname, '..')\n\n// 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x\nexport const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']\nexport const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist-electron')\nexport const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')\n\nprocess.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 'public') : RENDERER_DIST\n\nlet win: BrowserWindow | null\n\nfunction createWindow() {\n  win = new BrowserWindow({\n    icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),\n    webPreferences: {\n      preload: path.join(__dirname, 'preload.mjs'),\n    },\n  })\n\n  // Test active push message to Renderer-process.\n  win.webContents.on('did-finish-load', () => {\n    win?.webContents.send('main-process-message', (new Date).toLocaleString())\n  })\n\n  if (VITE_DEV_SERVER_URL) {\n    win.loadURL(VITE_DEV_SERVER_URL)\n  } else {\n    // win.loadFile('dist/index.html')\n    win.loadFile(path.join(RENDERER_DIST, 'index.html'))\n  }\n}\n\n// Quit when all windows are closed, except on macOS. There, it's common\n// for applications and their menu bar to stay active until the user quits\n// explicitly with Cmd + Q.\napp.on('window-all-closed', () => {\n  if (process.platform !== 'darwin') {\n    app.quit()\n    win = null\n  }\n})\n\napp.on('activate', () => {\n  // On OS X it's common to re-create a window in the app when the\n  // dock icon is clicked and there are no other windows open.\n  if (BrowserWindow.getAllWindows().length === 0) {\n    createWindow()\n  }\n})\n\napp.whenReady().then(createWindow)\n",
+    "start_line": 1,
+    "end_line": 68
+  },
+  {
+    "chunk_id": "electron/preload.ts:1-24",
+    "relative_path": "electron/preload.ts",
+    "content": "import { ipcRenderer, contextBridge } from 'electron'\n\n// --------- Expose some API to the Renderer process ---------\ncontextBridge.exposeInMainWorld('ipcRenderer', {\n  on(...args: Parameters<typeof ipcRenderer.on>) {\n    const [channel, listener] = args\n    return ipcRenderer.on(channel, (event, ...args) => listener(event, ...args))\n  },\n  off(...args: Parameters<typeof ipcRenderer.off>) {\n    const [channel, ...omit] = args\n    return ipcRenderer.off(channel, ...omit)\n  },\n  send(...args: Parameters<typeof ipcRenderer.send>) {\n    const [channel, ...omit] = args\n    return ipcRenderer.send(channel, ...omit)\n  },\n  invoke(...args: Parameters<typeof ipcRenderer.invoke>) {\n    const [channel, ...omit] = args\n    return ipcRenderer.invoke(channel, ...omit)\n  },\n\n  // You can expose other APTs you need here.\n  // ...\n})\n",
+    "start_line": 1,
+    "end_line": 24
+  },
+  {
+    "chunk_id": "package.json:1-33",
+    "relative_path": "package.json",
+    "content": "{\n  \"name\": \"weather-brightness\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"tsc && vite build && electron-builder\",\n    \"lint\": \"eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0\",\n    \"preview\": \"vite preview\"\n  },\n  \"dependencies\": {\n    \"react\": \"^18.2.0\",\n    \"react-dom\": \"^18.2.0\"\n  },\n  \"devDependencies\": {\n    \"@types/react\": \"^18.2.64\",\n    \"@types/react-dom\": \"^18.2.21\",\n    \"@typescript-eslint/eslint-plugin\": \"^7.1.1\",\n    \"@typescript-eslint/parser\": \"^7.1.1\",\n    \"@vitejs/plugin-react\": \"^4.2.1\",\n    \"eslint\": \"^8.57.0\",\n    \"eslint-plugin-react-hooks\": \"^4.6.0\",\n    \"eslint-plugin-react-refresh\": \"^0.4.5\",\n    \"typescript\": \"^5.2.2\",\n    \"vite\": \"^5.1.6\",\n    \"electron\": \"^30.0.1\",\n    \"electron-builder\": \"^24.13.3\",\n    \"vite-plugin-electron\": \"^0.28.6\",\n    \"vite-plugin-electron-renderer\": \"^0.14.5\"\n  },\n  \"main\": \"dist-electron/main.js\"\n}\n",
+    "start_line": 1,
+    "end_line": 33
+  },
+  {
+    "chunk_id": "src/vite-env.d.ts:1-1",
+    "relative_path": "src/vite-env.d.ts",
+    "content": "/// <reference types=\"vite/client\" />\n",
+    "start_line": 1,
+    "end_line": 1
+  },
+  {
+    "chunk_id": "tsconfig.json:1-25",
+    "relative_path": "tsconfig.json",
+    "content": "{\n  \"compilerOptions\": {\n    \"target\": \"ES2020\",\n    \"useDefineForClassFields\": true,\n    \"lib\": [\"ES2020\", \"DOM\", \"DOM.Iterable\"],\n    \"module\": \"ESNext\",\n    \"skipLibCheck\": true,\n\n    /* Bundler mode */\n    \"moduleResolution\": \"bundler\",\n    \"allowImportingTsExtensions\": true,\n    \"resolveJsonModule\": true,\n    \"isolatedModules\": true,\n    \"noEmit\": true,\n    \"jsx\": \"react-jsx\",\n\n    /* Linting */\n    \"strict\": true,\n    \"noUnusedLocals\": true,\n    \"noUnusedParameters\": true,\n    \"noFallthroughCasesInSwitch\": true\n  },\n  \"include\": [\"src\", \"electron\"],\n  \"references\": [{ \"path\": \"./tsconfig.node.json\" }]\n}\n",
+    "start_line": 1,
+    "end_line": 25
+  },
+  {
+    "chunk_id": "tsconfig.node.json:1-11",
+    "relative_path": "tsconfig.node.json",
+    "content": "{\n  \"compilerOptions\": {\n    \"composite\": true,\n    \"skipLibCheck\": true,\n    \"module\": \"ESNext\",\n    \"moduleResolution\": \"bundler\",\n    \"allowSyntheticDefaultImports\": true,\n    \"strict\": true\n  },\n  \"include\": [\"vite.config.ts\"]\n}\n",
+    "start_line": 1,
+    "end_line": 11
+  },
+  {
+    "chunk_id": "vite.config.ts:1-29",
+    "relative_path": "vite.config.ts",
+    "content": "import { defineConfig } from 'vite'\nimport path from 'node:path'\nimport electron from 'vite-plugin-electron/simple'\nimport react from '@vitejs/plugin-react'\n\n// https://vitejs.dev/config/\nexport default defineConfig({\n  plugins: [\n    react(),\n    electron({\n      main: {\n        // Shortcut of `build.lib.entry`.\n        entry: 'electron/main.ts',\n      },\n      preload: {\n        // Shortcut of `build.rollupOptions.input`.\n        // Preload scripts may contain Web assets, so use the `build.rollupOptions.input` instead `build.lib.entry`.\n        input: path.join(__dirname, 'electron/preload.ts'),\n      },\n      // Ployfill the Electron and Node.js API for Renderer process.\n      // If you want use Node.js in Renderer process, the `nodeIntegration` needs to be enabled in the Main process.\n      // See 👉 https://github.com/electron-vite/vite-plugin-electron-renderer\n      renderer: process.env.NODE_ENV === 'test'\n        // https://github.com/electron-vite/vite-plugin-electron-renderer/issues/78#issuecomment-2053600808\n        ? undefined\n        : {},\n    }),\n  ],\n})\n",
+    "start_line": 1,
+    "end_line": 29
+  }
+]

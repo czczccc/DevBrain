@@ -1,0 +1,13 @@
+{
+  "project_id": "28f661b701944561bae987e9a07275d7",
+  "root_path": "C:/Users/14636/Desktop/DevBrain/data/repos/pallets__click",
+  "imported_at": "2026-03-26T09:42:30.688482+00:00",
+  "file_count": 146,
+  "ignored_dirs": [
+    ".git",
+    "node_modules"
+  ],
+  "source_type": "github",
+  "source_url": "https://github.com/pallets/click",
+  "cache_reused": false
+}

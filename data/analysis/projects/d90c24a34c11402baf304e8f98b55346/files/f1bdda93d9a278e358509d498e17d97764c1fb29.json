@@ -1,0 +1,17 @@
+{
+  "file_path": "main.py",
+  "file_summary": "This Python file contains two simple functions: 'add' which returns the sum of two integers, and 'greet' which returns a greeting message for a given name.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 8,
+      "summary": "This window includes the entire file, covering both function definitions. Lines 1-3 define the 'add' function with type hints and a docstring. Lines 5-8 define the 'greet' function that constructs and returns a formatted greeting string."
+    }
+  ],
+  "key_symbols": [
+    "add",
+    "greet"
+  ],
+  "dependencies_or_calls": []
+}

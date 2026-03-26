@@ -1,0 +1,23 @@
+{
+  "file_path": "backend/api/health.py",
+  "file_summary": "This file defines a FastAPI health check endpoint that returns service status information including whether DeepSeek API is configured.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 16,
+      "summary": "This window contains the entire health check endpoint implementation. Lines 1-2 import FastAPI router and application settings. Line 4 creates an APIRouter instance tagged for health endpoints. Lines 7-16 define the health_check function decorated with @router.get(\"/health\") that returns a dictionary with service status, name, and DeepSeek configuration status."
+    }
+  ],
+  "key_symbols": [
+    "{'name': 'router', 'type': 'variable', 'description': 'FastAPI APIRouter instance for organizing health-related endpoints'}",
+    "{'name': 'health_check', 'type': 'function', 'description': 'Endpoint function that handles GET requests to /health and returns health status'}",
+    "{'name': 'settings', 'type': 'module', 'description': 'Imported settings module containing application configuration'}"
+  ],
+  "dependencies_or_calls": [
+    "{'name': 'fastapi.APIRouter', 'type': 'import', 'description': 'FastAPI router for creating API endpoints'}",
+    "{'name': 'backend.settings.settings', 'type': 'import', 'description': 'Application settings object containing configuration values'}",
+    "{'name': 'router.get', 'type': 'decorator', 'description': 'Decorator that registers the health_check function as a GET endpoint at /health'}",
+    "{'name': 'bool(settings.deepseek_api_key)', 'type': 'function_call', 'description': 'Checks if DeepSeek API key is configured in settings'}"
+  ]
+}

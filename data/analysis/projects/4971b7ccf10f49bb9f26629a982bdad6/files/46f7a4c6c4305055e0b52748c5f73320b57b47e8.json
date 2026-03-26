@@ -1,0 +1,33 @@
+{
+  "file_path": "tests/test_itsdangerous/test_url_safe.py",
+  "file_summary": "This file contains test classes for URLSafeSerializer and URLSafeTimedSerializer from itsdangerous package. It defines test classes that inherit from base test classes and override fixture methods to use URL-safe serializers with specific configurations.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 24,
+      "summary": "This window contains all imports and the complete TestURLSafeSerializer class definition. Lines 1-5 import dependencies including pytest, the URL-safe serializers to test, and the base test classes. Lines 7-24 define TestURLSafeSerializer which inherits from TestSerializer and provides two fixtures: serializer_factory that creates URLSafeSerializer instances with a fixed secret key, and value that provides test data parameters including a dictionary and a long string (for zlib compression testing)."
+    }
+  ],
+  "key_symbols": [
+    "TestURLSafeSerializer",
+    "TestURLSafeTimedSerializer",
+    "URLSafeSerializer",
+    "URLSafeTimedSerializer",
+    "TestSerializer",
+    "TestTimedSerializer",
+    "serializer_factory",
+    "value"
+  ],
+  "dependencies_or_calls": [
+    "from functools import partial",
+    "import pytest",
+    "from itsdangerous.url_safe import URLSafeSerializer",
+    "from itsdangerous.url_safe import URLSafeTimedSerializer",
+    "from test_itsdangerous.test_serializer import TestSerializer",
+    "from test_itsdangerous.test_timed import TestTimedSerializer",
+    "@pytest.fixture()",
+    "partial()",
+    "request.param"
+  ]
+}

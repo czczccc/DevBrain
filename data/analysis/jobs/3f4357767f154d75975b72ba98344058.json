@@ -1,0 +1,14 @@
+{
+  "job_id": "3f4357767f154d75975b72ba98344058",
+  "project_id": "7825d97c497841138573902749b7ec1f",
+  "status": "running",
+  "total_files": 41,
+  "completed_files": 13,
+  "failed_files": 0,
+  "current_file": "core/repo_import.py",
+  "repo_summary_ready": false,
+  "started_at": "2026-03-26T11:43:10.882563+00:00",
+  "finished_at": null,
+  "updated_at": "2026-03-26T11:46:00.004381+00:00",
+  "error": null
+}

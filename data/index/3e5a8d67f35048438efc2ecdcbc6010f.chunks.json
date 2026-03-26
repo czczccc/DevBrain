@@ -1,0 +1,1 @@
+[{"chunk_id": "main.py:1-4", "relative_path": "main.py", "content": "def main():\n    print(\"hello\")\n\nmain()", "start_line": 1, "end_line": 4, "chunk_type": "line_window", "window_index": 0, "key_symbols": []}]

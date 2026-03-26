@@ -1,0 +1,29 @@
+{
+  "file_path": "electron/preload.ts",
+  "file_summary": "This is an Electron preload script written in TypeScript that exposes a controlled subset of the ipcRenderer API to the renderer process via the contextBridge. It wraps ipcRenderer methods (on, off, send, invoke) to provide them securely to the renderer's window object under the key 'ipcRenderer'.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 24,
+      "summary": "This window covers the entire file. Lines 1-2 import ipcRenderer and contextBridge from Electron. Lines 4-24 use contextBridge.exposeInMainWorld to expose a wrapped version of ipcRenderer to the renderer's window object. The exposed object includes methods: on (lines 6-9), off (lines 10-13), send (lines 14-17), and invoke (lines 18-21), each forwarding calls to the corresponding ipcRenderer method with proper argument handling. Lines 23-24 contain a comment indicating where additional APIs could be exposed."
+    }
+  ],
+  "key_symbols": [
+    "ipcRenderer",
+    "contextBridge",
+    "exposeInMainWorld",
+    "on",
+    "off",
+    "send",
+    "invoke"
+  ],
+  "dependencies_or_calls": [
+    "import { ipcRenderer, contextBridge } from 'electron'",
+    "contextBridge.exposeInMainWorld",
+    "ipcRenderer.on",
+    "ipcRenderer.off",
+    "ipcRenderer.send",
+    "ipcRenderer.invoke"
+  ]
+}

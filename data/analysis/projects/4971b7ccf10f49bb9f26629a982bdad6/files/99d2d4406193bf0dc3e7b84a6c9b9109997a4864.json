@@ -1,0 +1,14 @@
+{
+  "file_path": ".github/pull_request_template.md",
+  "file_summary": "This is a GitHub pull request template file that provides a structured format for contributors to follow when submitting pull requests. It includes sections for describing changes, linking to issues, and ensuring compliance with contribution guidelines.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 25,
+      "summary": "This window contains the entire pull request template structure. Lines 1-8 provide a comment block instructing contributors to describe their changes and link to relevant issues. Lines 9-15 contain another comment block for linking to issues or previous PRs, with an example of using 'fixes' to automatically close issues. Lines 16-25 include a comprehensive checklist comment block that reminds contributors to complete essential steps like adding tests, updating documentation, and maintaining changelog entries."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": []
+}

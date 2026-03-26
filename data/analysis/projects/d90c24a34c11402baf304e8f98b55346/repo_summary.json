@@ -1,0 +1,3 @@
+{
+  "repo_summary": "# Repository Summary\n\n## Purpose\nA lightweight Python demo repository providing basic utility functions for arithmetic operations and greeting messages.\n\n## Core Modules\n- **main.py**: Contains the primary functionality with two core functions:\n  - `add(a, b)`: Returns the sum of two integers\n  - `greet(name)`: Returns a personalized greeting message\n\n## Entry Points\n- **main.py**: Direct execution or import of helper functions\n- **README.md**: Documentation and usage instructions for the demo"
+}

@@ -1,0 +1,14 @@
+{
+  "job_id": "237a222ac84e4bebafc9a486ba5901ee",
+  "project_id": "643d8009000c4f79acc067412d0ad07c",
+  "status": "running",
+  "total_files": 19,
+  "completed_files": 2,
+  "failed_files": 0,
+  "current_file": ".github/ISSUE_TEMPLATE/feature-request.md",
+  "repo_summary_ready": false,
+  "started_at": "2026-03-26T11:13:57.185972+00:00",
+  "finished_at": null,
+  "updated_at": "2026-03-26T11:14:15.706711+00:00",
+  "error": null
+}

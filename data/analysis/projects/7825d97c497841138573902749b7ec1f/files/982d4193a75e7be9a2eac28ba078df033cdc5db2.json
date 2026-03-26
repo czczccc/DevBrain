@@ -1,0 +1,23 @@
+{
+  "file_path": "core/chunking.py",
+  "file_summary": "This Python module provides code chunking functionality for repository indexing. It defines a CodeChunk dataclass to represent searchable units and implements functions to chunk repository documents, with special handling for Python files (splitting by functions/classes) and fallback whole-document chunking for other languages or syntax errors.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 73,
+      "summary": "This window covers the entire file. It includes: 1) Module docstring describing purpose; 2) Imports (annotations, dataclasses, ast, typing); 3) CodeChunk dataclass definition with chunk metadata fields; 4) Main chunk_documents function that orchestrates chunking across documents; 5) Helper _chunk_python_document that uses AST to extract functions/classes; 6) Helper _chunk_whole_document for fallback whole-file chunking. The window shows the complete chunking pipeline from document input to chunk list output."
+    }
+  ],
+  "key_symbols": [
+    "CodeChunk",
+    "chunk_documents",
+    "_chunk_python_document",
+    "_chunk_whole_document"
+  ],
+  "dependencies_or_calls": [
+    "ast",
+    "typing.Iterable",
+    "core.repo_ingestion.RepoDocument"
+  ]
+}
