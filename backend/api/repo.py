@@ -4,6 +4,7 @@ from pathlib import Path
 from fastapi import APIRouter, BackgroundTasks, Header, HTTPException
 from pydantic import BaseModel, Field
 
+from backend.services.ai_provider_service import AIProviderError, get_active_runtime_provider
 from backend.services.repo_analysis_service import (
     AnalysisJobStatus,
     create_analysis_job,
@@ -172,17 +173,18 @@ def analyze_repo(
 ) -> RepoAnalyzeResponse:
     metadata = _read_project_metadata(payload.project_id)
     _ensure_index_files(payload.project_id)
-    if not settings.deepseek_api_key.strip():
-        raise HTTPException(status_code=500, detail="DEEPSEEK_API_KEY is not configured")
+    try:
+        provider = get_active_runtime_provider()
+    except AIProviderError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
 
     job = create_analysis_job(payload.project_id)
-    config = _build_deepseek_config()
     background_tasks.add_task(
         run_analysis_job,
         payload.project_id,
         str(metadata["root_path"]),
         job.job_id,
-        config,
+        provider,
     )
     return _to_analyze_response(job)
 
@@ -283,16 +285,6 @@ def _ensure_index_files(project_id: str) -> None:
     chunks_file = index_dir / f"{project_id}.chunks.json"
     if not faiss_file.exists() or not chunks_file.exists():
         raise HTTPException(status_code=404, detail="Index not found. Build index first.")
-
-
-def _build_deepseek_config():
-    from backend.services.deepseek_client import DeepSeekConfig
-
-    return DeepSeekConfig(
-        api_key=settings.deepseek_api_key,
-        base_url=settings.deepseek_base_url,
-        model=settings.deepseek_model,
-    )
 
 
 def _to_analyze_response(job: AnalysisJobStatus) -> RepoAnalyzeResponse:

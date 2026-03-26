@@ -11,9 +11,9 @@ import shutil
 from threading import Lock
 import uuid
 
-from backend.services.deepseek_client import (
-    DeepSeekAPIError,
-    DeepSeekConfig,
+from backend.models import RuntimeAIProvider
+from backend.services.llm_client import (
+    LLMClientError,
     chat_completion,
 )
 from core.chunking import CodeChunk
@@ -115,7 +115,7 @@ def create_analysis_job(project_id: str) -> AnalysisJobStatus:
     return status
 
 
-def run_analysis_job(project_id: str, root_path: str, job_id: str, config: DeepSeekConfig) -> None:
+def run_analysis_job(project_id: str, root_path: str, job_id: str, config: RuntimeAIProvider) -> None:
     """Analyze repository files and persist per-file summaries in the background."""
 
     status = get_analysis_job_status(job_id)
@@ -181,7 +181,7 @@ def _analyze_documents(
     project_id: str,
     documents: list[RepoDocument],
     windows_by_file: dict[str, list[CodeChunk]],
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
     job_status: AnalysisJobStatus,
 ) -> list[FileAnalysisRecord]:
     analyses: list[FileAnalysisRecord] = []
@@ -202,7 +202,7 @@ def _analyze_documents(
 def _analyze_document(
     document: RepoDocument,
     windows: list[CodeChunk],
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> FileAnalysisRecord:
     intelligence = extract_file_intelligence(document)
     if _is_small_file(document, windows):
@@ -256,7 +256,7 @@ def _analyze_small_file(
     document: RepoDocument,
     windows: list[CodeChunk],
     intelligence: FileIntelligence,
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> FileAnalysisRecord:
     prompt = _build_small_file_prompt(document, windows, intelligence)
     raw_response = chat_completion(
@@ -281,7 +281,7 @@ def _analyze_large_file_windows(
     document: RepoDocument,
     windows: list[CodeChunk],
     intelligence: FileIntelligence,
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> list[LineWindowAnalysis]:
     analyses: list[LineWindowAnalysis] = []
     for window_batch in _batched(windows, WINDOW_BATCH_SIZE):
@@ -300,7 +300,7 @@ def _synthesize_file_summary(
     file_path: str,
     line_windows: list[LineWindowAnalysis],
     intelligence: FileIntelligence,
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> tuple[str, list[str]]:
     prompt = _build_file_summary_prompt(file_path, line_windows, intelligence)
     raw_response = chat_completion(
@@ -319,7 +319,7 @@ def _synthesize_file_summary(
 
 def _synthesize_repo_summary(
     analyses: list[FileAnalysisRecord],
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> str | None:
     if not analyses:
         return None
@@ -344,7 +344,7 @@ def _synthesize_repo_summary(
 def _safely_build_repo_summary(
     project_id: str,
     analyses: list[FileAnalysisRecord],
-    config: DeepSeekConfig,
+    config: RuntimeAIProvider,
 ) -> str | None:
     try:
         repo_summary = _synthesize_repo_summary(analyses, config)
@@ -355,7 +355,7 @@ def _safely_build_repo_summary(
     return repo_summary
 
 
-def _summarize_repo_batch(analyses: list[FileAnalysisRecord], config: DeepSeekConfig) -> str:
+def _summarize_repo_batch(analyses: list[FileAnalysisRecord], config: RuntimeAIProvider) -> str:
     prompt = "\n\n".join(
         [
             "Summarize the repository purpose, core modules, and likely entry points.",
@@ -450,7 +450,7 @@ def _parse_line_window_items(raw_items, windows: list[CodeChunk]) -> list[LineWi
     for window in windows:
         analysis = items_by_index.get(window.window_index)
         if analysis is None:
-            raise DeepSeekAPIError(
+            raise LLMClientError(
                 f"Missing analysis for window {window.window_index} in {window.relative_path}"
             )
         analyses.append(analysis)
@@ -459,7 +459,7 @@ def _parse_line_window_items(raw_items, windows: list[CodeChunk]) -> list[LineWi
 
 def _coerce_line_windows(raw_items) -> list[LineWindowAnalysis]:
     if not isinstance(raw_items, list):
-        raise DeepSeekAPIError("DeepSeek response missing line_windows array")
+        raise LLMClientError("AI analysis response missing line_windows array")
 
     analyses: list[LineWindowAnalysis] = []
     for item in raw_items:
@@ -483,7 +483,7 @@ def _parse_json_response(raw_text: str) -> dict:
         start = raw_text.find("{")
         end = raw_text.rfind("}")
         if start < 0 or end <= start:
-            raise DeepSeekAPIError("DeepSeek analysis response is not valid JSON")
+            raise LLMClientError("AI analysis response is not valid JSON")
         return json.loads(raw_text[start : end + 1])
 
 
@@ -496,7 +496,7 @@ def _parse_string_list(raw_value) -> list[str]:
 
 def _safe_text(value) -> str:
     if not isinstance(value, str) or not value.strip():
-        raise DeepSeekAPIError("DeepSeek analysis response missing required text field")
+        raise LLMClientError("AI analysis response missing required text field")
     return value.strip()
 
 

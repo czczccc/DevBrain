@@ -1,0 +1,47 @@
+{
+  "file_path": "core/repo_import.py",
+  "file_summary": "This Python module provides repository import functionality for local path onboarding. It includes dataclasses for scanned files and project metadata, along with functions to recursively scan repository files while ignoring specified directories and to save project metadata to JSON files.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Lines 1-80 contain the entire module. This includes imports, a constant for default ignored directories, two dataclass definitions (ScannedFile and ProjectMetadata), and the scan_repository_files function. The scan_repository_files function recursively scans files from a root path while skipping directories in an ignored set, returning a sorted list of ScannedFile objects. The window covers the complete implementation of this function."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 81,
+      "summary": "Lines 61-81 contain the save_project_metadata function and the end of the file. This function creates a ProjectMetadata object with a generated project ID, current timestamp, and file count, then saves it as a JSON file in a specified output directory. The function returns the metadata object. The window includes the entire function definition and the file's conclusion."
+    }
+  ],
+  "key_symbols": [
+    "DEFAULT_SCAN_IGNORED_DIRS",
+    "ScannedFile",
+    "ProjectMetadata",
+    "scan_repository_files",
+    "save_project_metadata"
+  ],
+  "dependencies_or_calls": [
+    "from __future__ import annotations",
+    "from dataclasses import asdict, dataclass",
+    "from datetime import UTC, datetime",
+    "from pathlib import Path",
+    "import json",
+    "import uuid",
+    "Path",
+    "Path.rglob",
+    "Path.resolve",
+    "Path.relative_to",
+    "Path.as_posix",
+    "Path.parts",
+    "Path.is_file",
+    "Path.stat",
+    "Path.mkdir",
+    "Path.write_text",
+    "datetime.now",
+    "datetime.isoformat",
+    "uuid.uuid4",
+    "json.dumps"
+  ]
+}

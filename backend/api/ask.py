@@ -4,10 +4,10 @@ from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
-from backend.services.deepseek_client import (
+from backend.services.ai_provider_service import AIProviderError, get_active_runtime_provider
+from backend.services.llm_client import (
     DEFAULT_SYSTEM_PROMPT,
-    DeepSeekAPIError,
-    DeepSeekConfig,
+    LLMClientError,
     chat_completion,
 )
 from backend.services.repo_analysis_service import (
@@ -60,8 +60,10 @@ def ask_question(payload: AskRequest) -> AskResponse:
     matches = _search_matches(payload.project_id, question, payload.top_k)
     if not matches:
         raise HTTPException(status_code=400, detail="No relevant context found for this question")
-    if not settings.deepseek_api_key.strip():
-        raise HTTPException(status_code=500, detail="DEEPSEEK_API_KEY is not configured")
+    try:
+        provider = get_active_runtime_provider()
+    except AIProviderError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.message) from exc
 
     analysis_context = load_project_analysis_context(
         project_id=payload.project_id,
@@ -71,10 +73,10 @@ def ask_question(payload: AskRequest) -> AskResponse:
     try:
         answer = chat_completion(
             prompt=prompt,
-            config=_build_deepseek_config(),
+            config=provider,
             system_prompt=_system_prompt_for_context(analysis_context),
         )
-    except DeepSeekAPIError as exc:
+    except LLMClientError as exc:
         raise HTTPException(status_code=502, detail=str(exc)) from exc
 
     return AskResponse(
@@ -184,14 +186,6 @@ def _build_sources(matches) -> list[SourceItem]:
         )
         for item in matches
     ]
-
-
-def _build_deepseek_config() -> DeepSeekConfig:
-    return DeepSeekConfig(
-        api_key=settings.deepseek_api_key,
-        base_url=settings.deepseek_base_url,
-        model=settings.deepseek_model,
-    )
 
 
 def _read_project_metadata(project_id: str) -> dict[str, str | int | list[str] | bool | None]:

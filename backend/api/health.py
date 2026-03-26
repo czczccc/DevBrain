@@ -1,6 +1,6 @@
 ﻿from fastapi import APIRouter
 
-from backend.settings import settings
+from backend.services.ai_provider_service import get_ai_config_snapshot
 
 router = APIRouter(tags=["health"])
 
@@ -9,8 +9,16 @@ router = APIRouter(tags=["health"])
 def health_check() -> dict[str, str | bool]:
     """Simple health endpoint for service readiness checks."""
 
+    snapshot = get_ai_config_snapshot()
+    deepseek_configured = bool(
+        snapshot.llm_configured
+        and snapshot.active_provider
+        and snapshot.active_provider.type == "deepseek"
+    )
     return {
         "status": "ok",
         "service": "devbrain-backend",
-        "deepseek_configured": bool(settings.deepseek_api_key),
+        "llm_configured": snapshot.llm_configured,
+        "active_provider_name": snapshot.active_provider_name or "",
+        "deepseek_configured": deepseek_configured,
     }

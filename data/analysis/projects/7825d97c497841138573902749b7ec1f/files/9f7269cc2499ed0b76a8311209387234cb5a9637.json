@@ -1,0 +1,32 @@
+{
+  "file_path": "core/repo_ingestion.py",
+  "file_summary": "This file provides repository ingestion utilities for codebase indexing. It defines data classes for documents, errors, and results, and implements a RepoIngestor class that walks through repository files, applies filtering rules, reads content, and returns structured ingestion results.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Lines 1-80 contain the module docstring, imports, global constants, and three dataclass definitions. The constants define default ignored directories and allowed file extensions. RepoDocument represents a single ingested file with path, language, and content. IngestionError captures file-level failures. IngestionResult holds the complete ingestion output including root path, documents list, and errors list."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 102,
+      "summary": "Lines 61-102 contain the RepoIngestor class implementation. This includes the __init__ method that sets up ignored directories and allowed extensions, the main ingest method that walks files, reads content, handles errors, and returns an IngestionResult, and the _iter_candidate_files helper that filters files based on directory ignores and extensions. The window also includes the _is_ignored method that checks if any parent directory is in the ignored set."
+    }
+  ],
+  "key_symbols": [
+    "RepoDocument",
+    "IngestionError",
+    "IngestionResult",
+    "RepoIngestor",
+    "DEFAULT_IGNORED_DIRS",
+    "DEFAULT_ALLOWED_EXTENSIONS"
+  ],
+  "dependencies_or_calls": [
+    "from __future__ import annotations",
+    "dataclasses.dataclass",
+    "pathlib.Path",
+    "typing.Iterable"
+  ]
+}

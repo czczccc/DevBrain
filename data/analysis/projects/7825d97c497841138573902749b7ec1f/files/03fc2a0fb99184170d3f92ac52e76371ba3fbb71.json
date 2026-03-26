@@ -1,0 +1,59 @@
+{
+  "file_path": "data/index/737c648343274bfabbcee764948ce652.chunks.json",
+  "file_summary": "This is a JSON index file containing code chunks from the DevBrain project, which appears to be a code search and analysis tool. The file aggregates chunks from multiple project files including documentation (AGENTS.md, PRD.md), backend API definitions, core functionality modules (chunking, indexing, repository ingestion), test files, and project metadata. The chunks represent a comprehensive cross-section of the project's codebase, organized for search and retrieval purposes.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Project rules and initial backend structure: AGENTS.md with project goals, architecture, tech stack, RAG rules, and code style. Includes backend package initialization, API health endpoint, and Pydantic models for repository operations (RepoLoadRequest, RepoFileItem, RepoMetadataItem, RepoLoadResponse, RepoIndexRequest, RepoIndexResponse, RepoSearchRequest)."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 140,
+      "summary": "API models and repository endpoints: Continuation of Pydantic models (SearchItem, RepoSearchResponse) and API endpoint implementations for loading, indexing, and searching repositories. Includes main FastAPI app setup, settings configuration, and core module exports."
+    },
+    {
+      "window_index": 2,
+      "start_line": 121,
+      "end_line": 200,
+      "summary": "Core functionality: Code chunking and indexing logic. Defines CodeChunk class, chunk_documents function with Python-specific AST parsing, and SearchResult class. Includes functions for building/saving FAISS index and searching it with embeddings."
+    },
+    {
+      "window_index": 3,
+      "start_line": 181,
+      "end_line": 260,
+      "summary": "Indexing utilities and repository ingestion: Helper functions for loading chunks, mapping search results, and dependency checking. Defines data classes for repository scanning (ScannedFile, ProjectMetadata) and ingestion (RepoDocument, IngestionError, IngestionResult) with file scanning and metadata saving functions."
+    },
+    {
+      "window_index": 4,
+      "start_line": 241,
+      "end_line": 320,
+      "summary": "Contains chunks from core/repo_ingestion.py (classes RepoDocument, IngestionError, IngestionResult, and RepoIngestor with its methods) and the beginning of core/tests/test_repo_ingestion.py (helper function _write and test test_ingest_filters_extensions_and_ignored_dirs)."
+    },
+    {
+      "window_index": 5,
+      "start_line": 301,
+      "end_line": 380,
+      "summary": "Continues with core/tests/test_repo_ingestion.py (test_ingest_collects_decode_errors) and then contains the entire content of data/index/b9e1e94f4f27422d9da9d547b41fbf21.chunks.json, which is a large JSON array of code chunks from many files across the DevBrain project (AGENTS.md, backend files, core modules, data files, docs)."
+    },
+    {
+      "window_index": 6,
+      "start_line": 361,
+      "end_line": 387,
+      "summary": "Contains the final chunks from data/index/b9e1e94f4f27422d9da9d547b41fbf21.chunks.json, including project metadata JSON files, docs/PRD.md, docs/task.json, and frontend/README.md."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "FastAPI",
+    "Pydantic",
+    "FAISS",
+    "AST",
+    "JSON",
+    "pathlib",
+    "typing",
+    "pytest"
+  ]
+}

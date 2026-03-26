@@ -1,0 +1,27 @@
+{
+  "file_path": "core/tests/test_repo_ingestion.py",
+  "file_summary": "This is a Python test file for testing repository ingestion functionality. It contains tests for the RepoIngestor class, focusing on file filtering by extension and directory exclusions, as well as error handling for files with decoding issues. The tests use pytest's tmp_path fixture for temporary directory management.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 40,
+      "summary": "This window covers the entire file, containing all test code. Lines 1-3 import dependencies. Lines 5-8 define a helper function '_write' that creates parent directories and writes text content to a file. Lines 10-27 define the first test 'test_ingest_filters_extensions_and_ignored_dirs' which creates various test files and verifies that RepoIngestor correctly filters by file extension and ignores specified directories. Lines 29-40 define the second test 'test_ingest_collects_decode_errors' which creates a file with invalid bytes and verifies that decoding errors are properly collected."
+    }
+  ],
+  "key_symbols": [
+    "Path",
+    "RepoIngestor",
+    "_write",
+    "test_ingest_filters_extensions_and_ignored_dirs",
+    "test_ingest_collects_decode_errors"
+  ],
+  "dependencies_or_calls": [
+    "pathlib.Path",
+    "core.repo_ingestion.RepoIngestor",
+    "path.parent.mkdir",
+    "path.write_text",
+    "path.write_bytes",
+    "RepoIngestor().ingest"
+  ]
+}

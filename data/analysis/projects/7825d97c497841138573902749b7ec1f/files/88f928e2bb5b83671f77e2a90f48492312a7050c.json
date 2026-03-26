@@ -1,0 +1,35 @@
+{
+  "file_path": "core/repo_source.py",
+  "file_summary": "This Python module provides utilities for cloning GitHub repositories with error handling and authentication support. It includes a structured error class, a main function for cloning repositories with token authentication, and helper functions for error detection and message truncation.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the module imports, constant definitions, and the main clone_github_repository function up to the point where it handles git execution. It includes: 1) Module imports for dataclasses, os, pathlib, re, shutil, and subprocess; 2) GITHUB_URL_PATTERN regex for validating GitHub URLs; 3) RepoSourceError dataclass exception definition; 4) The clone_github_repository function definition with parameter validation, directory checks, git command preparation with authentication token support, and initial subprocess execution setup."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 112,
+      "summary": "This window covers the error handling logic of clone_github_repository and all helper functions. It includes: 1) The completion of clone_github_repository function with git command execution error handling, cleanup on failure, and error categorization based on stderr/stdout analysis; 2) Three helper functions: _is_auth_error that detects authentication failures using keyword matching, _is_not_found_error that detects repository not found errors, and _truncate that limits error message length for cleaner output."
+    }
+  ],
+  "key_symbols": [
+    "GITHUB_URL_PATTERN",
+    "RepoSourceError",
+    "clone_github_repository",
+    "_is_auth_error",
+    "_is_not_found_error",
+    "_truncate"
+  ],
+  "dependencies_or_calls": [
+    "dataclasses.dataclass",
+    "os",
+    "pathlib.Path",
+    "re",
+    "shutil.rmtree",
+    "subprocess.run",
+    "re.compile"
+  ]
+}

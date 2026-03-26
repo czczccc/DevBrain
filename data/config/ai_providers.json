@@ -1,0 +1,14 @@
+{
+  "active_provider_id": "09cbb783cd084900baff4cf6313d5253",
+  "providers": [
+    {
+      "id": "09cbb783cd084900baff4cf6313d5253",
+      "type": "deepseek",
+      "name": "DeepSeek",
+      "base_url": "https://api.deepseek.com",
+      "model": "deepseek-chat",
+      "secret_ref": "provider:09cbb783cd084900baff4cf6313d5253",
+      "enabled": true
+    }
+  ]
+}

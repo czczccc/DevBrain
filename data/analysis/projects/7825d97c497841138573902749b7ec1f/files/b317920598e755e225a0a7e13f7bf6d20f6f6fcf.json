@@ -1,0 +1,73 @@
+{
+  "file_path": "data/index/6e4115e99152454cb4a9caaf051c81c5.chunks.json",
+  "file_summary": "This is a JSON file containing chunked data from a code indexing system. It appears to be part of a larger index structure where code and documentation from a project repository have been processed and stored in chunks. The file contains multiple window summaries that describe various components of a FastAPI-based backend system for code analysis and question-answering, including API endpoints, repository ingestion, document chunking, FAISS indexing, and project metadata management.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Contains project rules (AGENTS.md), backend package initialization, and the main API endpoint for asking questions (ask_question) with its request/response models and helper functions for building prompts and reading metadata."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 140,
+      "summary": "Continues with helper functions from ask.py, includes health check endpoint, and defines Pydantic models for repository loading, indexing, and search operations in repo.py."
+    },
+    {
+      "window_index": 2,
+      "start_line": 121,
+      "end_line": 200,
+      "summary": "Contains the implementation of repository loading, indexing, and semantic search API endpoints in repo.py, along with FastAPI app setup and initial definitions for the DeepSeek client service."
+    },
+    {
+      "window_index": 3,
+      "start_line": 181,
+      "end_line": 260,
+      "summary": "Includes the DeepSeek chat completion client, application settings, core module exports, and the core logic for document chunking and building/searching the FAISS index."
+    },
+    {
+      "window_index": 4,
+      "start_line": 241,
+      "end_line": 320,
+      "summary": "Contains chunk definitions from core/chunking.py (whole document chunking), core/indexing.py (SearchResult class, build_and_save_index, search_index, _load_chunks, _map_results, _ensure_dependencies), core/repo_import.py (ScannedFile, ProjectMetadata, scan_repository_files, save_project_metadata), and the beginning of core/repo_ingestion.py (RepoDocument class)."
+    },
+    {
+      "window_index": 5,
+      "start_line": 301,
+      "end_line": 380,
+      "summary": "Continues with core/repo_import.py functions (scan_repository_files, save_project_metadata), then core/repo_ingestion.py classes (RepoDocument, IngestionError, IngestionResult) and the RepoIngestor class including its __init__, ingest, _iter_candidate_files, _is_ignored, and _detect_language methods."
+    },
+    {
+      "window_index": 6,
+      "start_line": 361,
+      "end_line": 440,
+      "summary": "Contains the tail end of core/repo_ingestion.py methods (_iter_candidate_files, _is_ignored, _detect_language), test utilities and tests from core/tests/test_repo_ingestion.py, and the beginning of a large JSON chunk from data/index/737c648343274bfabbcee764948ce652.chunks.json (includes AGENTS.md, backend files, core files, and project metadata)."
+    },
+    {
+      "window_index": 7,
+      "start_line": 421,
+      "end_line": 485,
+      "summary": "Contains the tail end of the large JSON chunk from data/index/737c648343274bfabbcee764948ce652.chunks.json (including project metadata files, docs/PRD.md, docs/task.json, frontend/README.md) and the start of another chunk from data/index/b9e1e94f4f27422d9da9d547b41fbf21.chunks.json."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "FastAPI",
+    "Pydantic models",
+    "DeepSeek API client",
+    "FAISS index",
+    "AGENTS.md (project rules)",
+    "backend package initialization",
+    "ask_question endpoint",
+    "health check endpoint",
+    "repository loading/indexing/search endpoints",
+    "core/chunking.py",
+    "core/indexing.py",
+    "core/repo_import.py",
+    "core/repo_ingestion.py",
+    "core/tests/test_repo_ingestion.py",
+    "data/index/737c648343274bfabbcee764948ce652.chunks.json",
+    "data/index/b9e1e94f4f27422d9da9d547b41fbf21.chunks.json"
+  ]
+}

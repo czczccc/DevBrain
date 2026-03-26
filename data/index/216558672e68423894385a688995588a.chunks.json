@@ -1,0 +1,22 @@
+[
+  {
+    "chunk_id": "README.md:1-2",
+    "relative_path": "README.md",
+    "content": "# helloword\nthis is a test project",
+    "start_line": 1,
+    "end_line": 2,
+    "chunk_type": "line_window",
+    "window_index": 0,
+    "key_symbols": []
+  },
+  {
+    "chunk_id": "helloworld.py:1-2",
+    "relative_path": "helloworld.py",
+    "content": "# this is a helloword coding by python\nprint(\"hello world\")",
+    "start_line": 1,
+    "end_line": 2,
+    "chunk_type": "line_window",
+    "window_index": 0,
+    "key_symbols": []
+  }
+]

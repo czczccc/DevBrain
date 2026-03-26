@@ -1,0 +1,40 @@
+{
+  "file_path": "data/index/b9e1e94f4f27422d9da9d547b41fbf21.chunks.json",
+  "file_summary": "This appears to be a comprehensive codebase index file for a code search/analysis system. It contains project documentation (AGENTS.md, PRD.md), backend FastAPI application with health and repository APIs, core chunking and indexing logic for code documents, repository import/ingestion functionality, project metadata management, and frontend documentation. The system is designed to load, index, and search code repositories with structured request/response models and error handling.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Contains project rules (AGENTS.md), backend package initialization, health API, repo API with request/response models and endpoints for loading, indexing, and searching repositories, main FastAPI app, settings configuration, and core module exports."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 140,
+      "summary": "Contains core chunking logic (CodeChunk class, chunk_documents, _chunk_python_document, _chunk_whole_document), indexing logic (SearchResult class, build_and_save_index, search_index, helper functions), and repo import classes (ScannedFile, ProjectMetadata)."
+    },
+    {
+      "window_index": 2,
+      "start_line": 121,
+      "end_line": 200,
+      "summary": "Contains indexing helper functions, repo import functions (scan_repository_files, save_project_metadata), repo ingestion module (RepoDocument, IngestionError, IngestionResult, RepoIngestor), tests for repo ingestion, project metadata JSON files, and documentation files (PRD.md, task.json)."
+    },
+    {
+      "window_index": 3,
+      "start_line": 181,
+      "end_line": 205,
+      "summary": "Contains the continuation of documentation files (PRD.md, task.json) and the frontend README."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "FastAPI",
+    "Pydantic models",
+    "JSON file operations",
+    "Code parsing/chunking utilities",
+    "Index building/search functions",
+    "Repository scanning utilities",
+    "Project metadata serialization"
+  ]
+}

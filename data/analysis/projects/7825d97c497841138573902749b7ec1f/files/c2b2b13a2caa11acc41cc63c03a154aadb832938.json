@@ -1,0 +1,18 @@
+{
+  "file_path": "data/index/b9e1e94f4f27422d9da9d547b41fbf21.index.json",
+  "file_summary": "This JSON file contains metadata for a project that uses the sentence-transformers/all-MiniLM-L6-v2 model, indicating the project ID, model name, and total number of chunks (29).",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 5,
+      "summary": "This window includes the entire JSON object, covering all three key-value pairs: the project ID (b9e1e94f4f27422d9da9d547b41fbf21), the model name (sentence-transformers/all-MiniLM-L6-v2), and the chunk count (29)."
+    }
+  ],
+  "key_symbols": [
+    "project_id",
+    "model_name",
+    "chunk_count"
+  ],
+  "dependencies_or_calls": []
+}

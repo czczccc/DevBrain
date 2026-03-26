@@ -14,8 +14,8 @@
           <p class="eyebrow">DevBrain 工作台</p>
           <h1>导入仓库、分析代码、生成可追溯回答</h1>
           <p class="hero-copy">
-            输入 GitHub 仓库地址后，我们会完成导入、索引、逐文件分析，再把上下文交给
-            DeepSeek 生成带来源的解释。主界面优先展示仓库总结、回答和关键状态，调试数据按需展开。
+            输入 GitHub 仓库地址后，我们会完成导入、索引、逐文件分析，再把上下文交给当前激活的 AI
+            Provider 生成带来源的解释。主界面优先展示仓库总结、回答和关键状态，调试数据按需展开。
           </p>
         </div>
         <div class="hero-meta">
@@ -27,6 +27,92 @@
           <button id="refresh-health" class="ghost-button" type="button">刷新连接状态</button>
         </div>
       </header>
+
+      <section id="ai-onboarding-panel" class="panel ai-panel">
+        <div class="panel-header ai-panel-header">
+          <div>
+            <p class="section-tag">AI 初始化</p>
+            <h2 id="ai-panel-title">先配置一个可用的 AI Provider</h2>
+            <p id="ai-panel-description" class="hero-copy ai-panel-copy">
+              你的 API Key 只会写入本机系统凭据库，不会保存在项目文件、浏览器存储或调试面板里。
+            </p>
+          </div>
+          <div class="ai-panel-meta">
+            <div class="project-chip ai-chip">
+              <span>当前 Provider</span>
+              <strong id="ai-active-provider-summary">尚未配置</strong>
+            </div>
+            <button id="ai-panel-toggle" class="ghost-button hidden" type="button">管理 AI 配置</button>
+          </div>
+        </div>
+
+        <div id="ai-panel-body" class="ai-panel-body">
+          <div class="ai-setup-banner">
+            <div>
+              <strong id="ai-setup-title">首次进入时，先完成 AI 配置</strong>
+              <p id="ai-setup-text">
+                选择一个主流 Provider 模板，填写模型信息和 API Key。保存后，当前工作台会直接切换到你选中的 Provider。
+              </p>
+            </div>
+            <div class="ai-setup-note">
+              <span>密钥安全策略</span>
+              <strong>系统凭据库</strong>
+            </div>
+          </div>
+
+          <div id="ai-templates" class="provider-template-grid"></div>
+
+          <div class="ai-config-grid">
+            <section class="ai-form-card">
+              <div class="subsection-header">
+                <h3 id="provider-form-title">新增 Provider</h3>
+                <span id="provider-form-mode">会自动启用为当前模型服务</span>
+              </div>
+
+              <form id="ai-provider-form" novalidate>
+                <label class="field">
+                  <span>Provider 名称</span>
+                  <input id="provider-name" type="text" placeholder="例如：DeepSeek 主力" autocomplete="off" />
+                </label>
+
+                <div class="field-row provider-field-row">
+                  <label class="field">
+                    <span>Base URL</span>
+                    <input id="provider-base-url" type="url" placeholder="https://api.example.com/v1" autocomplete="off" />
+                  </label>
+                  <label class="field">
+                    <span>模型名称</span>
+                    <input id="provider-model" type="text" placeholder="deepseek-chat" autocomplete="off" />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span>API Key</span>
+                  <input id="provider-api-key" type="password" placeholder="仅本次输入，不会回显原值" autocomplete="new-password" />
+                  <small id="provider-api-key-hint" class="field-hint">
+                    首次创建必须填写；编辑已有 Provider 时，留空可保留当前密钥。
+                  </small>
+                </label>
+
+                <div class="button-row compact-button-row">
+                  <button id="save-provider" class="primary-button" type="submit">保存并启用</button>
+                  <button id="reset-provider-form" class="secondary-button" type="button">清空表单</button>
+                </div>
+              </form>
+            </section>
+
+            <section class="ai-list-card">
+              <div class="subsection-header">
+                <h3>已保存的 Provider</h3>
+                <span id="provider-count">0 个</span>
+              </div>
+              <div id="provider-list" class="provider-list">
+                <p class="empty-state">保存后，这里会显示你可切换的模型服务列表。</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
 
       <main class="workspace">
         <section class="panel input-panel">
@@ -93,6 +179,10 @@
                 <input id="top-k" name="topK" type="number" min="1" max="20" value="5" />
               </label>
             </div>
+
+            <p id="workspace-lock-hint" class="field-hint workspace-lock-hint hidden">
+              先完成上方 AI 配置，再使用导入、分析和问答功能。
+            </p>
 
             <div class="button-row">
               <button id="run-all" class="primary-button" type="button">一键运行</button>
@@ -210,7 +300,7 @@
 
           <div class="answer-card spotlight-card">
             <div class="subsection-header">
-              <h3>DeepSeek 回答</h3>
+              <h3>AI 回答</h3>
               <span id="ask-analysis-badge">分析就绪：否</span>
             </div>
             <p id="answer-output" class="answer-output">
