@@ -22,7 +22,8 @@ ASK_SYSTEM_PROMPT = (
     "You are DevBrain, a codebase analysis assistant. "
     "Use only the provided repository summary, file analyses, and code windows. "
     "Separate direct observations from inference when there is uncertainty. "
-    "Cite concrete files and line ranges whenever possible."
+    "Cite concrete files and line ranges whenever possible. "
+    "Keep code symbols, file paths, commands, library names, framework names, and common technical terms in their original form."
 )
 
 router = APIRouter(tags=["ask"])

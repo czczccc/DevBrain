@@ -301,7 +301,7 @@ summary {
 
 .timeline-step {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   gap: 14px;
   padding: 18px;
@@ -344,6 +344,81 @@ summary {
 .timeline-step h3 {
   margin: 0;
   font-size: 1rem;
+}
+
+.step-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 50%;
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--brand-strong);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.8rem;
+  cursor: help;
+  z-index: 3;
+}
+
+.step-info::before,
+.step-info::after {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 20;
+}
+
+.step-info::before {
+  content: "";
+  left: 50%;
+  top: calc(100% + 4px);
+  transform: translate(-50%, -6px);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent rgba(26, 25, 21, 0.92) transparent;
+}
+
+.step-info::after {
+  content: attr(data-tip);
+  left: 50%;
+  top: calc(100% + 10px);
+  width: 220px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(26, 25, 21, 0.92);
+  color: #fdf8ef;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: left;
+  transform: translate(-50%, -6px);
+  box-shadow: 0 14px 24px rgba(26, 25, 21, 0.18);
+}
+
+.step-info:hover::before,
+.step-info:hover::after,
+.step-info:focus-visible::before,
+.step-info:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.step-helper {
+  display: none;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 .timeline-step p {
@@ -561,6 +636,14 @@ summary {
   .field-row,
   .button-row {
     grid-template-columns: 1fr;
+  }
+
+  .step-helper {
+    display: block;
+  }
+
+  .step-info {
+    display: none;
   }
 
   .source-meta,

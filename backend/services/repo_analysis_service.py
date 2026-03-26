@@ -31,6 +31,18 @@ WINDOW_BATCH_SIZE = 4
 REPO_SUMMARY_BATCH_SIZE = 25
 SMALL_FILE_MAX_WINDOWS = 3
 SMALL_FILE_MAX_CHARS = 12000
+FIRST_PASS_FILE_LIMIT = 24
+PRIMARY_CODE_EXTENSIONS = {".py", ".ts", ".js"}
+LOW_PRIORITY_PATH_PARTS = {
+    "docs",
+    "examples",
+    "samples",
+    "tests",
+    "test",
+    "fixtures",
+    "mocks",
+    "__tests__",
+}
 WINDOW_SUMMARY_SYSTEM_PROMPT = (
     "You analyze source code windows for one file. "
     "Return valid JSON only."
@@ -40,8 +52,10 @@ FILE_SUMMARY_SYSTEM_PROMPT = (
     "Return valid JSON only."
 )
 REPO_SUMMARY_SYSTEM_PROMPT = (
-    "You synthesize repository-level understanding from file summaries. "
-    "Return concise markdown only."
+    "你负责为代码仓库生成中文总结。"
+    "总结正文必须使用简体中文。"
+    "文件名、类名、函数名、变量名、命令、库名、框架名，以及常见 IT / 编程术语保持原文。"
+    "输出精炼 Markdown，不要使用 JSON。"
 )
 
 
@@ -123,11 +137,29 @@ def run_analysis_job(project_id: str, root_path: str, job_id: str, config: Runti
     try:
         status = _start_job(status)
         documents, windows_by_file = _load_analysis_inputs(project_id=project_id, root_path=root_path)
-        status = _save_job_status(replace(status, total_files=len(documents)))
-        analyses = _analyze_documents(project_id, documents, windows_by_file, config, status)
+        ordered_documents = _prioritize_documents(documents)
+        first_pass_docs, remaining_docs = _split_analysis_phases(ordered_documents)
+        status = _save_job_status(replace(status, total_files=len(ordered_documents)))
+        analyses, status = _analyze_documents(
+            project_id,
+            first_pass_docs,
+            windows_by_file,
+            config,
+            status,
+        )
+        if remaining_docs and analyses:
+            status = _publish_repo_summary_snapshot(project_id, analyses, config, status)
+        remaining_analyses, status = _analyze_documents(
+            project_id,
+            remaining_docs,
+            windows_by_file,
+            config,
+            status,
+        )
+        analyses.extend(remaining_analyses)
         repo_summary = _safely_build_repo_summary(project_id, analyses, config)
         final_status = _finish_job(status.job_id, bool(repo_summary))
-        if final_status.failed_files or (analyses and not repo_summary):
+        if final_status.failed_files or (analyses and not final_status.repo_summary_ready):
             _save_job_status(replace(final_status, status="completed_with_errors"))
         else:
             _save_job_status(replace(final_status, status="completed"))
@@ -183,7 +215,7 @@ def _analyze_documents(
     windows_by_file: dict[str, list[CodeChunk]],
     config: RuntimeAIProvider,
     job_status: AnalysisJobStatus,
-) -> list[FileAnalysisRecord]:
+) -> tuple[list[FileAnalysisRecord], AnalysisJobStatus]:
     analyses: list[FileAnalysisRecord] = []
     status = job_status
     for document in documents:
@@ -196,7 +228,59 @@ def _analyze_documents(
         _write_file_analysis(project_id, analysis)
         analyses.append(analysis)
         status = _advance_completed_file(status)
-    return analyses
+    return analyses, status
+
+
+def _prioritize_documents(documents: list[RepoDocument]) -> list[RepoDocument]:
+    return sorted(
+        documents,
+        key=lambda document: (
+            _document_priority(document),
+            document.relative_path.count("/"),
+            document.relative_path.lower(),
+        ),
+    )
+
+
+def _document_priority(document: RepoDocument) -> int:
+    path = Path(document.relative_path)
+    suffix = path.suffix.lower()
+    lower_parts = {part.lower() for part in path.parts[:-1]}
+    lower_name = path.name.lower()
+    in_low_priority_path = bool(lower_parts & LOW_PRIORITY_PATH_PARTS)
+    looks_like_test_file = ".test." in lower_name or ".spec." in lower_name
+
+    if suffix in PRIMARY_CODE_EXTENSIONS and not in_low_priority_path and not looks_like_test_file:
+        return 0
+    if len(path.parts) == 1 and (lower_name == "readme.md" or suffix == ".json"):
+        return 1
+    return 2
+
+
+def _split_analysis_phases(
+    documents: list[RepoDocument],
+) -> tuple[list[RepoDocument], list[RepoDocument]]:
+    if len(documents) <= FIRST_PASS_FILE_LIMIT:
+        return documents, []
+    return documents[:FIRST_PASS_FILE_LIMIT], documents[FIRST_PASS_FILE_LIMIT:]
+
+
+def _publish_repo_summary_snapshot(
+    project_id: str,
+    analyses: list[FileAnalysisRecord],
+    config: RuntimeAIProvider,
+    status: AnalysisJobStatus,
+) -> AnalysisJobStatus:
+    repo_summary = _safely_build_repo_summary(project_id, analyses, config)
+    if not repo_summary:
+        return status
+    return _save_job_status(
+        replace(
+            status,
+            repo_summary_ready=True,
+            updated_at=_utc_now(),
+        )
+    )
 
 
 def _analyze_document(
@@ -332,7 +416,11 @@ def _synthesize_repo_summary(
 
     prompt = "\n\n".join(
         [
-            "Summarize this repository from grouped file summaries.",
+            (
+                "请基于下面的分组文件总结，输出这个仓库的中文总结。"
+                "至少覆盖：项目用途、核心模块、入口/启动点、关键补充观察。"
+                "说明文字用中文，代码元素和专业术语保持原文。"
+            ),
             "\n\n".join(
                 f"[Group {index}]\n{summary}" for index, summary in enumerate(batch_summaries, start=1)
             ),
@@ -358,7 +446,10 @@ def _safely_build_repo_summary(
 def _summarize_repo_batch(analyses: list[FileAnalysisRecord], config: RuntimeAIProvider) -> str:
     prompt = "\n\n".join(
         [
-            "Summarize the repository purpose, core modules, and likely entry points.",
+            (
+                "请用中文总结这批文件对应的仓库信息，至少覆盖：项目用途、核心模块、"
+                "入口/启动点、关键补充观察。说明文字用中文，代码元素和专业术语保持原文。"
+            ),
             "\n\n".join(
                 f"file: {analysis.file_path}\nsummary: {analysis.file_summary}"
                 for analysis in analyses
@@ -588,7 +679,7 @@ def _finish_job(job_id: str, repo_summary_ready: bool) -> AnalysisJobStatus:
         replace(
             status,
             current_file=None,
-            repo_summary_ready=repo_summary_ready,
+            repo_summary_ready=status.repo_summary_ready or repo_summary_ready,
             finished_at=finished_at,
             updated_at=finished_at,
         )

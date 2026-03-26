@@ -212,29 +212,65 @@
             <article class="timeline-step" data-step="load">
               <span class="step-index">1</span>
               <div>
-                <h3>导入</h3>
+                <div class="step-heading">
+                  <h3>导入</h3>
+                  <button
+                    class="step-info"
+                    type="button"
+                    aria-label="查看导入步骤说明"
+                    data-tip="把 GitHub 仓库拉到本地，并生成项目 metadata。"
+                  >i</button>
+                </div>
                 <p id="load-step-text">等待输入</p>
+                <small class="step-helper">把 GitHub 仓库拉到本地，并生成项目 metadata。</small>
               </div>
             </article>
             <article class="timeline-step" data-step="index">
               <span class="step-index">2</span>
               <div>
-                <h3>索引</h3>
+                <div class="step-heading">
+                  <h3>索引</h3>
+                  <button
+                    class="step-info"
+                    type="button"
+                    aria-label="查看索引步骤说明"
+                    data-tip="把可索引文件切成逐行覆盖代码块，并建立向量检索索引。"
+                  >i</button>
+                </div>
                 <p id="index-step-text">等待仓库</p>
+                <small class="step-helper">把可索引文件切成逐行覆盖代码块，并建立向量检索索引。</small>
               </div>
             </article>
             <article class="timeline-step" data-step="analyze">
               <span class="step-index">3</span>
               <div>
-                <h3>分析</h3>
+                <div class="step-heading">
+                  <h3>分析</h3>
+                  <button
+                    class="step-info"
+                    type="button"
+                    aria-label="查看分析步骤说明"
+                    data-tip="按文件理解代码窗口，生成文件总结和仓库总结。"
+                  >i</button>
+                </div>
                 <p id="analyze-step-text">等待索引完成</p>
+                <small class="step-helper">按文件理解代码窗口，生成文件总结和仓库总结。</small>
               </div>
             </article>
             <article class="timeline-step" data-step="ask">
               <span class="step-index">4</span>
               <div>
-                <h3>问答</h3>
+                <div class="step-heading">
+                  <h3>问答</h3>
+                  <button
+                    class="step-info"
+                    type="button"
+                    aria-label="查看问答步骤说明"
+                    data-tip="先检索相关代码上下文，再交给当前 AI 生成带来源的回答。"
+                  >i</button>
+                </div>
                 <p id="ask-step-text">等待提问</p>
+                <small class="step-helper">先检索相关代码上下文，再交给当前 AI 生成带来源的回答。</small>
               </div>
             </article>
           </div>

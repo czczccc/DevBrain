@@ -162,7 +162,7 @@ function render() {
   elements.rootPath.textContent = state.loadResponse?.metadata?.root_path ?? "暂无";
   elements.analysisStatus.textContent = formatAnalyzeStatus();
   elements.analysisCurrentFile.textContent = state.analyzeResponse?.current_file || "当前没有正在分析的文件。";
-  elements.repoSummaryState.textContent = isAnalysisReady() ? "已生成" : "未生成";
+  elements.repoSummaryState.textContent = formatRepoSummaryState();
   elements.repoSummaryOutput.textContent = state.analyzeResponse?.repo_summary || state.askResponse?.repo_summary || "完成“开始分析”后，这里会展示仓库级总结，帮助你快速理解项目用途、核心模块和入口。";
   elements.askAnalysisBadge.textContent = `分析就绪：${state.askResponse?.analysis_ready ? "是" : "否"}`;
   elements.answerOutput.textContent = state.askResponse?.answer || "导入并分析仓库后，在左侧输入问题，这里会展示基于代码上下文生成的中文回答。";
@@ -781,6 +781,16 @@ function formatCacheStatus(cacheReused) {
 
 function formatAnalyzeStatus() {
   return state.analyzeResponse ? mapAnalyzeStatus(state.analyzeResponse.status) : "未开始";
+}
+
+function formatRepoSummaryState() {
+  if (!isAnalysisReady()) {
+    return "未生成";
+  }
+  if (state.analyzeResponse?.repo_summary_ready && state.analyzeResponse?.status === "running") {
+    return "已生成（首轮）";
+  }
+  return "已生成";
 }
 
 function isAnalysisReady() {

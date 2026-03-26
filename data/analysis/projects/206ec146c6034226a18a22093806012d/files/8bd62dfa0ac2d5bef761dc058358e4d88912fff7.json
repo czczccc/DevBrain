@@ -1,0 +1,22 @@
+{
+  "file_path": "requirement-tracker/SKILL.md",
+  "file_summary": "This markdown file documents the 'requirement-tracker' skill, which is designed to persist and manage temporary requirements within a workspace across conversations. It provides an overview, usage examples, command-line interface instructions, workflow guidelines, and best practices for tracking, updating, summarizing, and focusing on requirements, with an emphasis on maintaining user wording and reporting in Chinese with clear '已完成' (completed) and '未完成' (pending) sections.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the file header, overview, and initial usage instructions. It starts with the YAML frontmatter defining the skill's name and purpose. The 'Overview' section explains the skill's function for persisting requirements and reporting in Chinese. The '最简单口语调用' (Simplest Spoken Invocation) section provides common conversational examples in Chinese for adding, checking, marking, and searching requirements. The 'Quick Start' section introduces the command-line helper script, listing available commands like 'add', 'list', 'search', 'focus', 'complete', 'set-status', 'remove', and 'summary', and notes automatic thread recording."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 101,
+      "summary": "This window covers the detailed workflow and notes for using the requirement tracker. It includes sections on 'When To Use' (listing user prompts that trigger the skill), 'Workflow' (with steps for recording, updating status, summarizing progress, focusing on unfinished work, and completing by keyword), and 'Notes' (best practices like scoping to workspace, preserving user wording, keeping items atomic, and using 'remove' cautiously). The workflow emphasizes checking for duplicates, updating status based on evidence, presenting summaries in Chinese with two sections, and handling keyword-based completions safely."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "python scripts/requirements_store.py"
+  ]
+}

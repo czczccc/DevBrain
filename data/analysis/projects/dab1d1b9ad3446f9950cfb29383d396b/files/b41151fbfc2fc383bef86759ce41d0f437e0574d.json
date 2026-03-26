@@ -1,0 +1,36 @@
+{
+  "file_path": "requirement-tracker/store/requirements.json",
+  "file_summary": "A JSON file storing requirement tracking data for a software project. It contains a list of requirements (features/tasks) organized by workspace, each with metadata like ID, description text, status, notes, timestamps, and source thread ID. The file tracks 17 requirements, most marked as completed with a few pending.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Lines 1-80 define the JSON structure starting with the 'workspaces' root object, containing a single workspace path key. This window includes the first 8 requirement entries (req-0001 through req-0008). Each entry has fields for ID, description text, status (all 'completed'), notes, creation/update timestamps, and a source thread ID. The lines show the initial project setup requirements like FastAPI skeleton, local repo import, code indexing, AI ask flow, GitHub integration, caching, and frontend test bench."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 140,
+      "summary": "Lines 61-140 contain a middle segment of the requirement list, overlapping with the end of the first window. It includes requirements req-0007 through req-0014. This covers topics like GitHub URL directory generation, frontend language changes to Chinese, line-by-line indexing, AI provider initialization (DeepSeek, Kimi, etc.), API key storage migration to system credentials, compact UI status bars, and the requirement-tracker skill implementation with completion summaries and sorting."
+    },
+    {
+      "window_index": 2,
+      "start_line": 121,
+      "end_line": 159,
+      "summary": "Lines 121-159 cover the final portion of the file, including requirements req-0012 through req-0017 and the closing braces of the JSON structure. This window shows the last 6 requirements, where req-0012 to req-0014 are completed (API key storage, UI compact bars, tracker skill), and req-0015 to req-0017 are pending (Chinese output for repo summaries, analyze speed optimization, and page step tooltips). The file ends with the closing brackets for the workspace array and the root 'workspaces' object."
+    }
+  ],
+  "key_symbols": [
+    "workspaces",
+    "C:\\Users\\14636\\Desktop\\DevBrain",
+    "id",
+    "text",
+    "status",
+    "note",
+    "created_at",
+    "updated_at",
+    "source_thread_id"
+  ],
+  "dependencies_or_calls": []
+}

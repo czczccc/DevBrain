@@ -1,0 +1,58 @@
+{
+  "file_path": "requirement-tracker/scripts/requirements_store.py",
+  "file_summary": "This file implements a command-line requirement tracker with persistent storage. It provides functionality to add, list, search, focus on, complete, update statuses, remove, and summarize requirement items. The system stores requirements in JSON format with support for status tracking (todo, in-progress, done), text search with fuzzy matching, thread-based organization, and duplicate detection. The script includes a CLI interface with subcommands for all operations.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "Imports, constants, and core store functions: file paths, status labels, store loading/saving, workspace normalization, item retrieval, ID generation, and duplicate detection."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 140,
+      "summary": "Item filtering and query matching logic: filtering by status/query, text normalization, fuzzy matching with overlap ratio, thread ID handling, and thread label formatting."
+    },
+    {
+      "window_index": 2,
+      "start_line": 121,
+      "end_line": 200,
+      "summary": "Timestamp formatting, item sorting, JSON output, and rendering functions: item display, section rendering, and focus view rendering for query-based results."
+    },
+    {
+      "window_index": 3,
+      "start_line": 181,
+      "end_line": 260,
+      "summary": "Completion result rendering and command implementations: add (with duplicate check), list, search, and focus commands for managing requirements."
+    },
+    {
+      "window_index": 4,
+      "start_line": 241,
+      "end_line": 320,
+      "summary": "Contains command functions for list, search, focus, complete, set_status, and remove operations, along with the require_item helper function. Functions handle loading data, filtering items, updating statuses, and saving changes."
+    },
+    {
+      "window_index": 5,
+      "start_line": 301,
+      "end_line": 380,
+      "summary": "Includes the tail end of cmd_set_status, full cmd_remove and cmd_summary functions, and the beginning of build_parser which defines CLI subparsers for add, list, search, and focus commands."
+    },
+    {
+      "window_index": 6,
+      "start_line": 361,
+      "end_line": 394,
+      "summary": "Continuation of build_parser defining subparsers for complete, set-status, remove, and summary commands, followed by the main function and script entry point."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "json",
+    "os",
+    "sys",
+    "datetime",
+    "re",
+    "argparse",
+    "difflib.SequenceMatcher"
+  ]
+}

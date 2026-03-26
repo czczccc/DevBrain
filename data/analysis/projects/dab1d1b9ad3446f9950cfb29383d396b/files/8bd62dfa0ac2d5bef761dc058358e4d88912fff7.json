@@ -1,0 +1,22 @@
+{
+  "file_path": "requirement-tracker/SKILL.md",
+  "file_summary": "This markdown file documents the 'requirement-tracker' skill, which is used to persist and manage temporary requirements across conversations within a workspace. It provides an overview, usage examples, quick start commands, workflow guidelines, and best practices for recording, updating, summarizing, and focusing on requirements. The skill emphasizes maintaining user wording, scoping to the workspace, and presenting summaries in Chinese with clear '已完成' (completed) and '未完成' (pending) sections.",
+  "line_windows": [
+    {
+      "window_index": 0,
+      "start_line": 1,
+      "end_line": 80,
+      "summary": "This window covers the file header, overview, simplest spoken invocation examples, and quick start guide. It begins with the skill's metadata (name and description), introduces its purpose for tracking temporary requirements, and provides common spoken commands in Chinese for adding, checking, marking, and searching requirements. The quick start section lists available Python script commands (e.g., add, list, search, complete) for managing requirements via the command line, scoped by workspace path."
+    },
+    {
+      "window_index": 1,
+      "start_line": 61,
+      "end_line": 101,
+      "summary": "This window covers the workflow guidelines and notes for using the requirement tracker. It details steps for recording requirements (avoiding duplicates), updating statuses (based on evidence), summarizing progress (with clear completed/pending sections in Chinese), focusing on unfinished work, and completing items by keyword or ID. The notes section emphasizes workspace scoping, preserving user wording, keeping items atomic, and avoiding fabrication of status reports."
+    }
+  ],
+  "key_symbols": [],
+  "dependencies_or_calls": [
+    "python scripts/requirements_store.py"
+  ]
+}
